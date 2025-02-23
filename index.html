@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Single Pull - Automatic Cascade</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pull-tab-bg: #ff4444;
+      --text-color: #333;
+      --paper-bg: #ffffff;
+      --glue-width: 20px;
+      --glue-bg: repeating-linear-gradient(90deg, #cfcfcf, #cfcfcf 5px, #e6e6e6 5px, #e6e6e6 var(--glue-width));
+      --transition-duration: 0.5s;
+      --cascade-delay: 1000ms; /* Speed of revealing each page */
+
+      /* Colors for post-reveal background changes */
+      --color1: #ffc0cb; /* Pink */
+      --color2: #ffa07a; /* Light Salmon */
+      --color3: #ffd700; /* Gold */
+      --color4: #adff2f; /* GreenYellow */
+      --color5: #87cefa; /* LightSkyBlue */
+    }
+
+    /* 
+      BODY: 
+      1) Animated gradient background 
+      2) Smooth color transitions 
+    */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      cursor: grab;
+      /* Animated gradient background (shifts left to right) */
+      background: linear-gradient(45deg, #ff6b6b, #ffd700, #c0ffb3);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      transition: background 1s ease;
+    }
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Pull tab floating animation */
+    .pull-tab {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--pull-tab-bg);
+      color: white;
+      padding: 15px 40px;
+      border-radius: 0 0 15px 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      animation: floatTab 2s ease-in-out infinite;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    @keyframes floatTab {
+      0% {
+        transform: translate(-50%, 0px);
+      }
+      50% {
+        transform: translate(-50%, 10px);
+      }
+      100% {
+        transform: translate(-50%, 0px);
+      }
+    }
+    .pull-tab:hover {
+      transform: translate(-50%, 0px) scale(1.05);
+      background: #e63939;
+    }
+
+    .pull-instruction {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.2em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      animation: pulse 2s infinite;
+      z-index: 999;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.1);
+      }
+    }
+
+    .paper-container {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      margin: 120px auto 0;
+    }
+    .paper-stack {
+      position: relative;
+      /* Enough total height to hold all pages once revealed */
+      height: 6000px;
+    }
+
+    /* Each "page" on the stack */
+    .paper-roll {
+      position: absolute;
+      width: 100%;
+      /* Decreased min-height so that 960 + 40px padding = 1000px total, matching finalPositions. */
+      min-height: 960px;
+      background:
+        var(--paper-bg)
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><line x1='0' y1='29' x2='100' y2='29' stroke='%23000000' stroke-opacity='0.05' stroke-width='1'/></svg>")
+        repeat-y;
+      padding: 20px 20px 20px calc(20px + var(--glue-width));
+      border-radius: 0 0 0 20px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transform-origin: top center;
+      transform: translateY(-150%) rotate3d(1, 0, 0, 8deg);
+      transition: transform var(--transition-duration) ease;
+      z-index: 1;
+    }
+    /* Glue effect on the left edge */
+    .paper-roll::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--glue-width);
+      height: 100%;
+      background: var(--glue-bg);
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 0;
+    }
+
+    /* The content 'pops' in after the page is revealed */
+    .paper-content {
+      opacity: 0;
+    }
+    .paper-roll.revealed .paper-content {
+      animation: contentPop 0.8s ease forwards;
+    }
+    @keyframes contentPop {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .emoji-bar {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .birthday-text {
+      font-size: 1.5em;
+      color: var(--text-color);
+      margin: 25px 0;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* Particle effects */
+    .confetti, .air-particle, .swirl {
+      pointer-events: none;
+    }
+    .confetti {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      animation: confetti-fall 3s linear forwards;
+      border-radius: 2px;
+    }
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .air-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      animation: float-up 2s ease-out forwards;
+    }
+    @keyframes float-up {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100px) scale(0.2);
+        opacity: 0;
+      }
+    }
+    .swirl {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: swirl-up 1.5s ease-out forwards;
+    }
+    @keyframes swirl-up {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-200px) rotate(720deg) scale(0);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="pull-tab" id="pullTab" aria-label="Pull down to open">
+    🎁 PULL DOWN TO OPEN 🎁
+  </div>
+  <div class="pull-instruction">⬇️ Hold and pull down ⬇️</div>
+
+  <div class="paper-container">
+    <div class="paper-stack" id="paperStack">
+      <!-- PAGE 1 -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">❤️❤️❤️</div>
+          <h1 style="text-align: center;">🎉 Page 1: A Grand Beginning 🎉</h1>
+          <p class="birthday-text">
+            May this single pull unlock a world of celebration! <br />
+            Welcome to your birthday scroll—brimming with wonder and cheer.
+          </p>
+        </div>
+      </div>
+      <!-- PAGE 2 -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">✨✨✨</div>
+          <h1 style="text-align: center;">🎉 Page 2: Heartfelt Wishes 🎉</h1>
+          <p class="birthday-text">
+            With each revealed page, let your spirit shine. <br />
+            May laughter and joy follow you wherever you go.
+          </p>
+        </div>
+      </div>
+      <!-- PAGE 3 -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">💕💕💕</div>
+          <h1 style="text-align: center;">🎉 Page 3: Moments to Treasure 🎉</h1>
+          <p class="birthday-text">
+            Celebrate every precious memory you’ve gathered so far, <br />
+            and look forward to countless more yet to come.
+          </p>
+        </div>
+      </div>
+      <!-- PAGE 4 -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">🌟🌟🌟</div>
+          <h1 style="text-align: center;">🎉 Page 4: Dreams & Adventures 🎉</h1>
+          <p class="birthday-text">
+            Let new adventures beckon you onward, <br />
+            guiding you toward dreams that spark your imagination.
+          </p>
+        </div>
+      </div>
+      <!-- PAGE 5 -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">💖💖💖</div>
+          <h1 style="text-align: center;">🎉 Page 5: Celebrating You 🎉</h1>
+          <p class="birthday-text">
+            Thank you for being the brilliant, kind, and inspiring soul you are. <br />
+            May this birthday be the start of your most amazing chapter yet!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const pullTab = document.getElementById('pullTab');
+      const instruction = document.querySelector('.pull-instruction');
+      const pages = Array.from(document.querySelectorAll('.paper-roll'));
+      // Positions at which each page will rest after the cascade
+      const finalPositions = [0, 1000, 2000, 3000, 4000];
+      let isDragging = false, startY = 0, currentY = 0;
+      const threshold = 200;
+      const cascadeDelay = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue('--cascade-delay')
+      );
+
+      // Colors to cycle through after revealing each page
+      const backgroundColors = [
+        'var(--color1)', 
+        'var(--color2)', 
+        'var(--color3)', 
+        'var(--color4)', 
+        'var(--color5)'
+      ];
+
+      // Highest z-index for the topmost page
+      pages.forEach((page, i) => {
+        page.style.zIndex = pages.length - i;
+      });
+
+      // Helper: get Y from mouse or touch
+      const getY = (e) => (e.clientY !== undefined ? e.clientY : e.touches[0].clientY);
+
+      const startDrag = (e) => {
+        if (!pages.length) return;
+        isDragging = true;
+        startY = getY(e);
+        document.body.style.cursor = 'grabbing';
+
+        window.addEventListener('mousemove', doDrag, { passive: false });
+        window.addEventListener('touchmove', doDrag, { passive: false });
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('touchend', stopDrag);
+      };
+
+      const doDrag = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        currentY = getY(e);
+        const deltaY = currentY - startY;
+        const progress = Math.min(Math.max(deltaY / 500, 0), 1);
+
+        // Move the topmost page visually
+        const topPage = pages[0];
+        const rotation = 8 - progress * 8;
+        topPage.style.transform = `translateY(${-150 + progress * 150}%) rotate3d(1, 0, 0, ${rotation}deg)`;
+
+        // Extra effects while pulling
+        if (progress > 0.1) {
+          if (Math.random() < 0.2) createAirParticle(topPage, currentY);
+          if (Math.random() < 0.1) createSwirl(topPage, currentY);
+          if (Math.random() < 0.3) createConfetti(progress);
+        }
+      };
+
+      const stopDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        document.body.style.cursor = 'grab';
+
+        const deltaY = currentY - startY;
+        if (deltaY > threshold) {
+          // Enough pull => reveal everything in sequence
+          if (instruction) instruction.style.display = 'none';
+          progressiveRevealAll();
+        } else {
+          // Reset top page if not pulled far enough
+          pages[0].style.transform = `translateY(-150%) rotate3d(1, 0, 0, 8deg)`;
+        }
+
+        window.removeEventListener('mousemove', doDrag);
+        window.removeEventListener('touchmove', doDrag);
+        window.removeEventListener('mouseup', stopDrag);
+        window.removeEventListener('touchend', stopDrag);
+      };
+
+      // Reveal pages in sequence
+      const progressiveRevealAll = () => {
+        pullTab.style.display = 'none';
+
+        pages.forEach((page, i) => {
+          setTimeout(() => {
+            // Move page to final stacked position
+            page.style.transform = `translateY(${finalPositions[i]}px) rotate3d(1, 0, 0, 0deg)`;
+            page.classList.add('revealed');
+
+            // Change body background color with each page reveal
+            document.body.style.background = backgroundColors[i % backgroundColors.length];
+
+            createMultipleEffects(page);
+            window.scrollTo({
+              top: finalPositions[i],
+              behavior: 'smooth'
+            });
+          }, i * cascadeDelay);
+        });
+      };
+
+      // Extra fun effects after each page reveals
+      const createMultipleEffects = (page) => {
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            createAirParticle(page, 200);
+            if (i % 2 === 0) createSwirl(page, 200);
+            createConfetti(1);
+          }, i * 100);
+        }
+      };
+
+      const createAirParticle = (page, yPos = 0) => {
+        const particle = document.createElement('div');
+        particle.className = 'air-particle';
+        const x = Math.random() * page.offsetWidth;
+        const y = Math.random() * 100 + yPos;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        page.appendChild(particle);
+        setTimeout(() => particle.remove(), 2000);
+      };
+
+      const createSwirl = (page, yPos = 0) => {
+        const swirl = document.createElement('div');
+        swirl.className = 'swirl';
+        const x = Math.random() * page.offsetWidth;
+        const y = Math.random() * 100 + yPos;
+        swirl.style.left = `${x}px`;
+        swirl.style.top = `${y}px`;
+        page.appendChild(swirl);
+        setTimeout(() => swirl.remove(), 1500);
+      };
+
+      const createConfetti = (intensity = 1) => {
+        const count = Math.floor(15 * intensity);
+        for (let i = 0; i < count; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = `${Math.random() * 100}vw`;
+          confetti.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+          confetti.style.animationDuration = `${Math.random() * 2 + 1}s`;
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 3000);
+        }
+      };
+
+      pullTab.addEventListener('mousedown', startDrag);
+      pullTab.addEventListener('touchstart', startDrag);
+    })();
+  </script>
+</body>
+</html>
