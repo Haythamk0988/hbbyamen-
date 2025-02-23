@@ -9,18 +9,16 @@
     :root {
       --pull-tab-bg: #ff4444;
       --text-color: #333;
-      --paper-bg: #ffffff;
       --glue-width: 20px;
       --glue-bg: repeating-linear-gradient(90deg, #cfcfcf, #cfcfcf 5px, #e6e6e6 5px, #e6e6e6 var(--glue-width));
       --transition-duration: 0.5s;
-      --cascade-delay: 1000ms; /* Speed of revealing each page */
-
-      /* Colors for post-reveal background changes */
-      --color1: #ffc0cb; /* Pink */
-      --color2: #ffa07a; /* Light Salmon */
-      --color3: #ffd700; /* Gold */
-      --color4: #adff2f; /* GreenYellow */
-      --color5: #87cefa; /* LightSkyBlue */
+      --cascade-delay: 1000ms;
+      /* Updated color palette for page reveals */
+      --color1: #ff9a9e;  /* Soft rose pink */
+      --color2: #f6d365;  /* Warm peach */
+      --color3: #fda085;  /* Light coral */
+      --color4: #a1c4fd;  /* Pastel blue */
+      --color5: #cfd9df;  /* Soft grey */
     }
 
     * {
@@ -29,29 +27,17 @@
       padding: 0;
     }
 
-    /* 
-      BODY: 
-      1) Animated gradient background 
-      2) Smooth color transitions 
-    */
+    /* Initial white background for a cleaner look */
     body {
       min-height: 100vh;
       font-family: "Poppins", sans-serif;
       overflow-x: hidden;
       cursor: grab;
-      /* Animated gradient background (shifts left to right) */
-      background: linear-gradient(45deg, #ff6b6b, #ffd700, #c0ffb3);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
+      background: white;
       transition: background 1s ease;
     }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
 
-    /* INTRO IMAGE: Visible initially, then fades out once the user pulls enough */
+    /* ===== INTRO IMAGE STYLING ===== */
     #introImage {
       position: fixed;
       top: 50%;
@@ -59,16 +45,46 @@
       transform: translate(-50%, -50%);
       max-width: 80%;
       max-height: 80%;
-      z-index: 900; 
+      z-index: 900;
       transition: opacity 1s ease;
+      border: 5px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
-    /* Class added to fade out the image */
     #introImage.hide {
       opacity: 0;
       pointer-events: none;
     }
 
-    /* Pull tab floating animation */
+    /* ===== BACKGROUND EMOJI OVERLAY & SWIMMING ANIMATION ===== */
+    #emojiOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-emoji {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.7;
+      animation: swim 30s ease-in-out infinite;
+    }
+    /* Special class for stars to add a glowing trail effect */
+    .star-emoji {
+      text-shadow: 0 0 5px gold, 0 0 10px gold, 0 0 15px gold;
+    }
+    @keyframes swim {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(15px, -10px); }
+      50% { transform: translate(30px, 10px); }
+      75% { transform: translate(15px, 20px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* ===== PULL TAB & INSTRUCTIONS ===== */
     .pull-tab {
       position: fixed;
       top: 20px;
@@ -93,48 +109,40 @@
       transform: translate(-50%, 0px) scale(1.05);
       background: #e63939;
     }
-
     .pull-instruction {
       position: fixed;
       top: 80px;
       left: 50%;
       transform: translateX(-50%);
-      color: white;
+      color: #333;
       font-size: 1.2em;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       animation: pulse 2s infinite;
       z-index: 999;
     }
     @keyframes pulse {
-      0%, 100% {
-        opacity: 0.8;
-        transform: translateX(-50%) scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1.1);
-      }
+      0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
     }
 
+    /* ===== PAPER STACK ===== */
     .paper-container {
       position: relative;
       width: 90%;
       max-width: 800px;
       margin: 120px auto 0;
+      z-index: 10;
     }
     .paper-stack {
       position: relative;
-      height: 6000px; /* Enough total height for all pages */
+      height: 6000px;
     }
-
-    /* Each "page" on the stack */
+    /* Semi-transparent pages so background emojis show through */
     .paper-roll {
       position: absolute;
       width: 100%;
-      /* 960 + 40px padding = 1000px total, matching finalPositions */
       min-height: 960px;
-      background:
-        var(--paper-bg)
+      background: rgba(255,255,255,0.95)
         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><line x1='0' y1='29' x2='100' y2='29' stroke='%23000000' stroke-opacity='0.05' stroke-width='1'/></svg>")
         repeat-y;
       padding: 20px 20px 20px calc(20px + var(--glue-width));
@@ -145,7 +153,6 @@
       transition: transform var(--transition-duration) ease;
       z-index: 1;
     }
-    /* Glue effect on the left edge */
     .paper-roll::before {
       content: "";
       position: absolute;
@@ -157,8 +164,6 @@
       border-top-left-radius: 20px;
       border-bottom-left-radius: 0;
     }
-
-    /* Content "pops" in after the page is revealed */
     .paper-content {
       opacity: 0;
     }
@@ -166,18 +171,9 @@
       animation: contentPop 0.8s ease forwards;
     }
     @keyframes contentPop {
-      0% {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      50% {
-        transform: scale(1.05);
-        opacity: 0.7;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     .emoji-bar {
@@ -185,7 +181,6 @@
       font-size: 2em;
       margin-bottom: 10px;
     }
-
     .birthday-text {
       font-size: 1.5em;
       color: var(--text-color);
@@ -194,10 +189,8 @@
       line-height: 1.6;
     }
 
-    /* Particle effects */
-    .confetti, .air-particle, .swirl {
-      pointer-events: none;
-    }
+    /* ===== PARTICLE EFFECTS ===== */
+    .confetti, .air-particle, .swirl { pointer-events: none; }
     .confetti {
       position: fixed;
       width: 12px;
@@ -206,14 +199,8 @@
       border-radius: 2px;
     }
     @keyframes confetti-fall {
-      0% {
-        transform: translateY(-100vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
     .air-particle {
       position: absolute;
@@ -224,14 +211,8 @@
       animation: float-up 2s ease-out forwards;
     }
     @keyframes float-up {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-100px) scale(0.2);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-100px) scale(0.2); opacity: 0; }
     }
     .swirl {
       position: absolute;
@@ -242,19 +223,16 @@
       animation: swirl-up 1.5s ease-out forwards;
     }
     @keyframes swirl-up {
-      0% {
-        transform: translateY(0) rotate(0deg) scale(1);
-        opacity: 0.6;
-      }
-      100% {
-        transform: translateY(-200px) rotate(720deg) scale(0);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.6; }
+      100% { transform: translateY(-200px) rotate(720deg) scale(0); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <!-- INTRO IMAGE (will fade out after the user pulls) -->
+  <!-- Background Emoji Overlay -->
+  <div id="emojiOverlay"></div>
+
+  <!-- INTRO IMAGE (fades out after pull) -->
   <img src="hppy.png" id="introImage" alt="Happy Image" />
 
   <!-- PULL TAB & INSTRUCTION -->
@@ -271,7 +249,7 @@
           <div class="emoji-bar">❤️❤️❤️</div>
           <h1 style="text-align: center;">🎉 Page 1: A Grand Beginning 🎉</h1>
           <p class="birthday-text">
-            May this single pull unlock a world of celebration! <br />
+            May this single pull unlock a world of celebration!<br />
             Welcome to your birthday scroll—brimming with wonder and cheer.
           </p>
         </div>
@@ -282,7 +260,7 @@
           <div class="emoji-bar">✨✨✨</div>
           <h1 style="text-align: center;">🎉 Page 2: Heartfelt Wishes 🎉</h1>
           <p class="birthday-text">
-            With each revealed page, let your spirit shine. <br />
+            With each revealed page, let your spirit shine.<br />
             May laughter and joy follow you wherever you go.
           </p>
         </div>
@@ -293,7 +271,7 @@
           <div class="emoji-bar">💕💕💕</div>
           <h1 style="text-align: center;">🎉 Page 3: Moments to Treasure 🎉</h1>
           <p class="birthday-text">
-            Celebrate every precious memory you’ve gathered so far, <br />
+            Celebrate every precious memory you’ve gathered so far,<br />
             and look forward to countless more yet to come.
           </p>
         </div>
@@ -304,7 +282,7 @@
           <div class="emoji-bar">🌟🌟🌟</div>
           <h1 style="text-align: center;">🎉 Page 4: Dreams & Adventures 🎉</h1>
           <p class="birthday-text">
-            Let new adventures beckon you onward, <br />
+            Let new adventures beckon you onward,<br />
             guiding you toward dreams that spark your imagination.
           </p>
         </div>
@@ -315,7 +293,7 @@
           <div class="emoji-bar">💖💖💖</div>
           <h1 style="text-align: center;">🎉 Page 5: Celebrating You 🎉</h1>
           <p class="birthday-text">
-            Thank you for being the brilliant, kind, and inspiring soul you are. <br />
+            Thank you for being the brilliant, kind, and inspiring soul you are.<br />
             May this birthday be the start of your most amazing chapter yet!
           </p>
         </div>
@@ -329,15 +307,13 @@
       const instruction = document.querySelector('.pull-instruction');
       const pages = Array.from(document.querySelectorAll('.paper-roll'));
       const introImage = document.getElementById('introImage');
-      // Positions at which each page will rest after the cascade
+      // Final positions for each page after reveal
       const finalPositions = [0, 1000, 2000, 3000, 4000];
       let isDragging = false, startY = 0, currentY = 0;
       const threshold = 200;
-      const cascadeDelay = parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue('--cascade-delay')
-      );
+      const cascadeDelay = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cascade-delay'));
 
-      // Colors to cycle through after revealing each page
+      // Refined background colors for page reveals
       const backgroundColors = [
         'var(--color1)',
         'var(--color2)',
@@ -346,12 +322,10 @@
         'var(--color5)'
       ];
 
-      // Highest z-index for the topmost page
-      pages.forEach((page, i) => {
-        page.style.zIndex = pages.length - i;
-      });
+      // Ensure top page gets highest z-index
+      pages.forEach((page, i) => page.style.zIndex = pages.length - i);
 
-      // Helper: get Y from mouse or touch
+      // Helper: Get Y coordinate from mouse/touch events
       const getY = (e) => (e.clientY !== undefined ? e.clientY : e.touches[0].clientY);
 
       const startDrag = (e) => {
@@ -372,13 +346,10 @@
         currentY = getY(e);
         const deltaY = currentY - startY;
         const progress = Math.min(Math.max(deltaY / 500, 0), 1);
-
-        // Move the topmost page visually
         const topPage = pages[0];
         const rotation = 8 - progress * 8;
         topPage.style.transform = `translateY(${-150 + progress * 150}%) rotate3d(1, 0, 0, ${rotation}deg)`;
 
-        // Extra effects while pulling
         if (progress > 0.1) {
           if (Math.random() < 0.2) createAirParticle(topPage, currentY);
           if (Math.random() < 0.1) createSwirl(topPage, currentY);
@@ -390,59 +361,41 @@
         if (!isDragging) return;
         isDragging = false;
         document.body.style.cursor = 'grab';
-
         const deltaY = currentY - startY;
         if (deltaY > threshold) {
-          // Enough pull => hide the intro image & reveal everything in sequence
           if (instruction) instruction.style.display = 'none';
           fadeOutIntroImage();
           progressiveRevealAll();
         } else {
-          // Reset top page if not pulled far enough
           pages[0].style.transform = `translateY(-150%) rotate3d(1, 0, 0, 8deg)`;
         }
-
         window.removeEventListener('mousemove', doDrag);
         window.removeEventListener('touchmove', doDrag);
         window.removeEventListener('mouseup', stopDrag);
         window.removeEventListener('touchend', stopDrag);
       };
 
-      // Fade out the intro image
       function fadeOutIntroImage() {
         if (!introImage) return;
         introImage.classList.add('hide');
-        // Optionally remove it from the DOM after transition
         setTimeout(() => {
-          if (introImage.parentNode) {
-            introImage.parentNode.removeChild(introImage);
-          }
-        }, 1000); // match the CSS transition duration
+          if (introImage.parentNode) introImage.parentNode.removeChild(introImage);
+        }, 1000);
       }
 
-      // Reveal pages in sequence
       const progressiveRevealAll = () => {
         pullTab.style.display = 'none';
-
         pages.forEach((page, i) => {
           setTimeout(() => {
-            // Move page to final stacked position
             page.style.transform = `translateY(${finalPositions[i]}px) rotate3d(1, 0, 0, 0deg)`;
             page.classList.add('revealed');
-
-            // Change body background color with each page reveal
             document.body.style.background = backgroundColors[i % backgroundColors.length];
-
             createMultipleEffects(page);
-            window.scrollTo({
-              top: finalPositions[i],
-              behavior: 'smooth'
-            });
+            window.scrollTo({ top: finalPositions[i], behavior: 'smooth' });
           }, i * cascadeDelay);
         });
       };
 
-      // Extra fun effects after each page reveals
       const createMultipleEffects = (page) => {
         for (let i = 0; i < 10; i++) {
           setTimeout(() => {
@@ -490,8 +443,42 @@
 
       pullTab.addEventListener('mousedown', startDrag);
       pullTab.addEventListener('touchstart', startDrag);
+
+      /* ===== ADD RANDOM SWIMMING BACKGROUND EMOJIS ===== */
+      // Set total number of background emojis
+      const totalEmojis = 30;
+      // Bias the selection so stars appear more often.
+      // For example, 5 stars out of 8 total options.
+      const emojiArray = ["⭐", "⭐", "⭐", "⭐", "⭐", "🎂", "🎁", "🍰"];
+      // Function to bias left coordinate: 70% chance to be near the sides
+      function getBiasedLeft() {
+        if (Math.random() < 0.7) {
+          return Math.random() < 0.5 
+            ? (Math.random() * 20) + "%"  // left side: 0-20%
+            : (80 + Math.random() * 20) + "%"; // right side: 80-100%
+        } else {
+          return (20 + Math.random() * 60) + "%"; // center: 20-80%
+        }
+      }
+      const emojiOverlay = document.getElementById("emojiOverlay");
+      for (let i = 0; i < totalEmojis; i++) {
+        const emojiEl = document.createElement("div");
+        emojiEl.classList.add("bg-emoji");
+        const chosenEmoji = emojiArray[Math.floor(Math.random() * emojiArray.length)];
+        emojiEl.innerText = chosenEmoji;
+        emojiEl.style.top = Math.random() * 100 + "%";
+        emojiEl.style.left = getBiasedLeft();
+        // For stars, assign a faster animation and add trail class
+        if (chosenEmoji === "⭐") {
+          emojiEl.classList.add("star-emoji");
+          emojiEl.style.animationDuration = (10 + Math.random() * 5) + "s";
+        } else {
+          emojiEl.style.animationDuration = (25 + Math.random() * 20) + "s";
+        }
+        emojiEl.style.animationDelay = Math.random() * 5 + "s";
+        emojiOverlay.appendChild(emojiEl);
+      }
     })();
   </script>
 </body>
 </html>
-
