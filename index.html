@@ -9,8 +9,9 @@
     :root {
       --pull-tab-bg: #ff4444;
       --text-color: #333;
-      --glue-width: 20px;
-      --glue-bg: repeating-linear-gradient(90deg, #cfcfcf, #cfcfcf 5px, #e6e6e6 5px, #e6e6e6 var(--glue-width));
+      /* Glue effect variables removed */
+      /* --glue-width: 20px; */
+      /* --glue-bg: repeating-linear-gradient(90deg, #cfcfcf, #cfcfcf 5px, #e6e6e6 5px, #e6e6e6 var(--glue-width)); */
       --transition-duration: 0.5s;
       --cascade-delay: 1000ms;
       /* Updated color palette for page reveals */
@@ -72,7 +73,7 @@
       opacity: 0.7;
       animation: swim 30s ease-in-out infinite;
     }
-    /* Special class for stars to add a glowing trail effect */
+    /* Special class for stars to add a glowing effect */
     .star-emoji {
       text-shadow: 0 0 5px gold, 0 0 10px gold, 0 0 15px gold;
     }
@@ -82,6 +83,27 @@
       50% { transform: translate(30px, 10px); }
       75% { transform: translate(15px, 20px); }
       100% { transform: translate(0, 0); }
+    }
+
+    /* ===== STAR PARTICLE TRAIL EFFECT ===== */
+    .star-particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: gold;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: starParticleTrail 0.5s linear forwards;
+    }
+    @keyframes starParticleTrail {
+      from {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      to {
+        transform: translate(10px, 10px);
+        opacity: 0;
+      }
     }
 
     /* ===== PULL TAB & INSTRUCTIONS ===== */
@@ -125,6 +147,19 @@
       50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
     }
 
+    /* Mobile Optimizations */
+    @media only screen and (max-width: 600px) {
+      .pull-tab {
+        top: 10px;
+        padding: 10px 20px;
+        font-size: 0.9em;
+      }
+      .pull-instruction {
+        top: 50px;
+        font-size: 1em;
+      }
+    }
+
     /* ===== PAPER STACK ===== */
     .paper-container {
       position: relative;
@@ -139,20 +174,22 @@
     }
     /* Semi-transparent pages so background emojis show through */
     .paper-roll {
-      position: absolute;
-      width: 100%;
-      min-height: 960px;
-      background: rgba(255,255,255,0.95)
-        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><line x1='0' y1='29' x2='100' y2='29' stroke='%23000000' stroke-opacity='0.05' stroke-width='1'/></svg>")
-        repeat-y;
-      padding: 20px 20px 20px calc(20px + var(--glue-width));
-      border-radius: 0 0 0 20px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-      transform-origin: top center;
-      transform: translateY(-150%) rotate3d(1, 0, 0, 8deg);
-      transition: transform var(--transition-duration) ease;
-      z-index: 1;
-    }
+  position: absolute;
+  width: 100%;
+  min-height: 960px;
+  background-color: rgba(255,255,255,0.95);
+  background-image: linear-gradient(transparent 29px, rgba(0,0,0,0.05) 29px, rgba(0,0,0,0.05) 30px);
+  background-size: 100% 30px;
+  padding: 20px;
+  border-radius: 0 0 0 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform-origin: top center;
+  transform: translateY(-150%) rotate3d(1, 0, 0, 8deg);
+  transition: transform var(--transition-duration) ease;
+  z-index: 1;
+}
+    /* Glue pseudo-element removed */
+    /*
     .paper-roll::before {
       content: "";
       position: absolute;
@@ -164,6 +201,7 @@
       border-top-left-radius: 20px;
       border-bottom-left-radius: 0;
     }
+    */
     .paper-content {
       opacity: 0;
     }
@@ -449,7 +487,7 @@
       const totalEmojis = 30;
       // Bias the selection so stars appear more often.
       // For example, 5 stars out of 8 total options.
-      const emojiArray = ["⭐", "⭐", "⭐", "⭐", "⭐", "🎂", "🎁", "🍰"];
+      const emojiArray = ["⭐", "⭐", "⭐", "⭐", "⭐", "🎂", "🎁", "🍰", "☁️"];
       // Function to bias left coordinate: 70% chance to be near the sides
       function getBiasedLeft() {
         if (Math.random() < 0.7) {
@@ -468,10 +506,20 @@
         emojiEl.innerText = chosenEmoji;
         emojiEl.style.top = Math.random() * 100 + "%";
         emojiEl.style.left = getBiasedLeft();
-        // For stars, assign a faster animation and add trail class
+        // For stars, assign a faster animation and add trail effect
         if (chosenEmoji === "⭐") {
           emojiEl.classList.add("star-emoji");
           emojiEl.style.animationDuration = (10 + Math.random() * 5) + "s";
+          // Create particle trail at regular intervals
+          setInterval(() => {
+            let rect = emojiEl.getBoundingClientRect();
+            const particle = document.createElement("div");
+            particle.className = "star-particle";
+            particle.style.left = rect.left + rect.width / 2 + "px";
+            particle.style.top = rect.top + rect.height / 2 + "px";
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 500);
+          }, 500);
         } else {
           emojiEl.style.animationDuration = (25 + Math.random() * 20) + "s";
         }
