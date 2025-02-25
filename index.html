@@ -4,31 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Single Pull - Automatic Cascade</title>
+  <!-- Fonts: Poppins for body & Great Vibes for the birthday message -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     :root {
       --pull-tab-bg: #ff4444;
       --text-color: #333;
-      /* Glue effect variables removed */
-      /* --glue-width: 20px; */
-      /* --glue-bg: repeating-linear-gradient(90deg, #cfcfcf, #cfcfcf 5px, #e6e6e6 5px, #e6e6e6 var(--glue-width)); */
-      --transition-duration: 0.5s;
+      --transition-duration: 0.8s;
       --cascade-delay: 1000ms;
       /* Updated color palette for page reveals */
-      --color1: #ff9a9e;  /* Soft rose pink */
-      --color2: #f6d365;  /* Warm peach */
-      --color3: #fda085;  /* Light coral */
-      --color4: #a1c4fd;  /* Pastel blue */
-      --color5: #cfd9df;  /* Soft grey */
+      --color1: #ff9a9e;
+      --color2: #f6d365;
+      --color3: #fda085;
+      --color4: #a1c4fd;
+      --color5: #cfd9df;
     }
-
+    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
-    /* Initial white background for a cleaner look */
+    
     body {
       min-height: 100vh;
       font-family: "Poppins", sans-serif;
@@ -37,8 +35,8 @@
       background: white;
       transition: background 1s ease;
     }
-
-    /* ===== INTRO IMAGE STYLING ===== */
+    
+    /* ===== INTRO IMAGE ===== */
     #introImage {
       position: fixed;
       top: 50%;
@@ -56,8 +54,8 @@
       opacity: 0;
       pointer-events: none;
     }
-
-    /* ===== BACKGROUND EMOJI OVERLAY & SWIMMING ANIMATION ===== */
+    
+    /* ===== BACKGROUND EMOJI OVERLAY ===== */
     #emojiOverlay {
       position: fixed;
       top: 0;
@@ -73,7 +71,6 @@
       opacity: 0.7;
       animation: swim 30s ease-in-out infinite;
     }
-    /* Special class for stars to add a glowing effect */
     .star-emoji {
       text-shadow: 0 0 5px gold, 0 0 10px gold, 0 0 15px gold;
     }
@@ -84,8 +81,8 @@
       75% { transform: translate(15px, 20px); }
       100% { transform: translate(0, 0); }
     }
-
-    /* ===== STAR PARTICLE TRAIL EFFECT ===== */
+    
+    /* ===== STAR PARTICLE ===== */
     .star-particle {
       position: fixed;
       width: 4px;
@@ -96,112 +93,110 @@
       animation: starParticleTrail 0.5s linear forwards;
     }
     @keyframes starParticleTrail {
-      from {
-        transform: translate(0, 0);
-        opacity: 1;
-      }
-      to {
-        transform: translate(10px, 10px);
-        opacity: 0;
-      }
+      from { transform: translate(0, 0); opacity: 1; }
+      to { transform: translate(10px, 10px); opacity: 0; }
     }
-
-    /* ===== PULL TAB & INSTRUCTIONS ===== */
+    
+    /* ===== PULL TAB ===== */
     .pull-tab {
       position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translate(-50%, 0px);
-      background: var(--pull-tab-bg);
-      color: white;
-      padding: 15px 40px;
-      border-radius: 0 0 15px 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      z-index: 999;
-      animation: floatTab 2s ease-in-out infinite;
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-    @keyframes floatTab {
-      0%   { transform: translate(-50%, 0px); }
-      50%  { transform: translate(-50%, 10px); }
-      100% { transform: translate(-50%, 0px); }
-    }
-    .pull-tab:hover {
-      transform: translate(-50%, 0px) scale(1.05);
-      background: #e63939;
-    }
-    .pull-instruction {
-      position: fixed;
-      top: 80px;
+      top: 50px;
       left: 50%;
       transform: translateX(-50%);
-      color: #333;
-      font-size: 1.2em;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      animation: pulse 2s infinite;
+      background: linear-gradient(135deg, #ffb347, #ff4444);
+      color: white;
+      padding: 15px 40px;
+      border-radius: 30px;
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 68, 68, 0.3);
       z-index: 999;
+      animation: pulseTab 2s ease-in-out infinite;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
-      50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    .pull-tab:before, .pull-tab:after { content: "🎁"; font-size: 1.2rem; }
+    @keyframes pulseTab {
+      0% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+      100% { transform: translateX(-50%) translateY(0); }
     }
-
-    /* Mobile Optimizations */
-    @media only screen and (max-width: 600px) {
-      .pull-tab {
-        top: 10px;
-        padding: 10px 20px;
-        font-size: 0.9em;
-      }
-      .pull-instruction {
-        top: 50px;
-        font-size: 1em;
-      }
+    .pull-tab:hover {
+      transform: translateX(-50%) scale(1.08);
+      background: linear-gradient(135deg, #ff9a9e, #ff5757);
+      box-shadow: 0 12px 30px rgba(255, 68, 68, 0.4);
     }
-
-    /* ===== PAPER STACK ===== */
+    
+    .pull-instruction {
+      position: fixed;
+      top: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: #ff4444;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 998;
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+    
+    @media only screen and (max-width: 768px) {
+      .pull-tab { top: 30px; padding: 12px 25px; font-size: 1rem; }
+      .pull-instruction { top: 90px; font-size: 0.8rem; }
+    }
+    @media only screen and (max-width: 480px) {
+      .pull-tab { top: 20px; padding: 10px 20px; font-size: 0.9rem; width: 80%; }
+      .pull-instruction { top: 75px; font-size: 0.75rem; width: 80%; text-align: center; }
+    }
+    
+    /* ===== PAPER STACK & FOLDING ANIMATION ===== */
     .paper-container {
       position: relative;
       width: 90%;
       max-width: 800px;
       margin: 120px auto 0;
       z-index: 10;
+      perspective: 1200px;
     }
-    .paper-stack {
-      position: relative;
-      height: 6000px;
-    }
-    /* Semi-transparent pages so background emojis show through */
+    .paper-stack { position: relative; height: 6000px; }
     .paper-roll {
-  position: absolute;
-  width: 100%;
-  min-height: 960px;
-  background-color: rgba(255,255,255,0.95);
-  background-image: linear-gradient(transparent 29px, rgba(0,0,0,0.05) 29px, rgba(0,0,0,0.05) 30px);
-  background-size: 100% 30px;
-  padding: 20px;
-  border-radius: 0 0 0 20px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  transform-origin: top center;
-  transform: translateY(-150%) rotate3d(1, 0, 0, 8deg);
-  transition: transform var(--transition-duration) ease;
-  z-index: 1;
-}
-    /* Glue pseudo-element removed */
-    /*
-    .paper-roll::before {
-      content: "";
       position: absolute;
-      left: 0;
-      top: 0;
-      width: var(--glue-width);
-      height: 100%;
-      background: var(--glue-bg);
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 0;
+      width: 100%;
+      min-height: 960px;
+      background-color: rgba(255,255,255,0.95);
+      background-image: linear-gradient(transparent 29px, rgba(0,0,0,0.05) 29px, rgba(0,0,0,0.05) 30px);
+      background-size: 100% 30px;
+      padding: 20px;
+      border-radius: 0 0 0 20px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transform-origin: top center;
+      transform: translateY(-150%) rotateX(15deg) scale(0.95);
+      transition: transform var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1), 
+                  box-shadow var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 1;
     }
-    */
+    .paper-roll.revealed {
+      animation: foldAnimation var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes foldAnimation {
+      0% { transform: translateY(-150%) rotateX(15deg) scale(0.95); opacity: 0.7; }
+      60% { transform: translateY(calc(var(--final-y) - 20px)) rotateX(5deg) scale(1.02); opacity: 0.9; }
+      100% { transform: translateY(var(--final-y)) rotateX(0deg) scale(1); opacity: 1; }
+    }
     .paper-content {
       opacity: 0;
     }
@@ -213,7 +208,7 @@
       50% { transform: scale(1.05); opacity: 0.7; }
       100% { transform: scale(1); opacity: 1; }
     }
-
+    
     .emoji-bar {
       text-align: center;
       font-size: 2em;
@@ -226,7 +221,7 @@
       text-align: center;
       line-height: 1.6;
     }
-
+    
     /* ===== PARTICLE EFFECTS ===== */
     .confetti, .air-particle, .swirl { pointer-events: none; }
     .confetti {
@@ -264,21 +259,39 @@
       0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.6; }
       100% { transform: translateY(-200px) rotate(720deg) scale(0); opacity: 0; }
     }
+    
+    /* ===== MODIFIED BACKGROUND MESSAGE ===== */
+    #bgMessage {
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: rgba(241, 241, 241, 0.9);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 1000;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
   <!-- Background Emoji Overlay -->
   <div id="emojiOverlay"></div>
-
-  <!-- INTRO IMAGE (fades out after pull) -->
+  
+  <!-- INTRO IMAGE -->
   <img src="hppy.png" id="introImage" alt="Happy Image" />
-
+  
   <!-- PULL TAB & INSTRUCTION -->
   <div class="pull-tab" id="pullTab" aria-label="Pull down to open">
     🎁 PULL DOWN TO OPEN 🎁
   </div>
   <div class="pull-instruction">⬇️ Hold and pull down ⬇️</div>
-
+  
   <div class="paper-container">
     <div class="paper-stack" id="paperStack">
       <!-- PAGE 1 -->
@@ -338,7 +351,10 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- Modified Background Message -->
+  <div id="bgMessage">Happy birthday My Lucky Star!</div>
+  
   <script>
     (() => {
       const pullTab = document.getElementById('pullTab');
@@ -349,9 +365,10 @@
       const finalPositions = [0, 1000, 2000, 3000, 4000];
       let isDragging = false, startY = 0, currentY = 0;
       const threshold = 200;
-      const cascadeDelay = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cascade-delay'));
-
-      // Refined background colors for page reveals
+      const cascadeDelay = parseInt(getComputedStyle(document.documentElement)
+                               .getPropertyValue('--cascade-delay'));
+      
+      // Background colors for page reveals
       const backgroundColors = [
         'var(--color1)',
         'var(--color2)',
@@ -359,25 +376,24 @@
         'var(--color4)',
         'var(--color5)'
       ];
-
+      
       // Ensure top page gets highest z-index
       pages.forEach((page, i) => page.style.zIndex = pages.length - i);
-
+      
       // Helper: Get Y coordinate from mouse/touch events
       const getY = (e) => (e.clientY !== undefined ? e.clientY : e.touches[0].clientY);
-
+      
       const startDrag = (e) => {
         if (!pages.length) return;
         isDragging = true;
         startY = getY(e);
         document.body.style.cursor = 'grabbing';
-
         window.addEventListener('mousemove', doDrag, { passive: false });
         window.addEventListener('touchmove', doDrag, { passive: false });
         window.addEventListener('mouseup', stopDrag);
         window.addEventListener('touchend', stopDrag);
       };
-
+      
       const doDrag = (e) => {
         if (!isDragging) return;
         e.preventDefault();
@@ -385,16 +401,15 @@
         const deltaY = currentY - startY;
         const progress = Math.min(Math.max(deltaY / 500, 0), 1);
         const topPage = pages[0];
-        const rotation = 8 - progress * 8;
-        topPage.style.transform = `translateY(${-150 + progress * 150}%) rotate3d(1, 0, 0, ${rotation}deg)`;
-
+        const rotation = 15 - progress * 15;
+        topPage.style.transform = `translateY(${(-150 + progress * 150)}%) rotateX(${rotation}deg) scale(${0.95 + progress * 0.05})`;
         if (progress > 0.1) {
           if (Math.random() < 0.2) createAirParticle(topPage, currentY);
           if (Math.random() < 0.1) createSwirl(topPage, currentY);
           if (Math.random() < 0.3) createConfetti(progress);
         }
       };
-
+      
       const stopDrag = () => {
         if (!isDragging) return;
         isDragging = false;
@@ -405,14 +420,14 @@
           fadeOutIntroImage();
           progressiveRevealAll();
         } else {
-          pages[0].style.transform = `translateY(-150%) rotate3d(1, 0, 0, 8deg)`;
+          pages[0].style.transform = `translateY(-150%) rotateX(15deg) scale(0.95)`;
         }
         window.removeEventListener('mousemove', doDrag);
         window.removeEventListener('touchmove', doDrag);
         window.removeEventListener('mouseup', stopDrag);
         window.removeEventListener('touchend', stopDrag);
       };
-
+      
       function fadeOutIntroImage() {
         if (!introImage) return;
         introImage.classList.add('hide');
@@ -420,20 +435,32 @@
           if (introImage.parentNode) introImage.parentNode.removeChild(introImage);
         }, 1000);
       }
-
+      
       const progressiveRevealAll = () => {
         pullTab.style.display = 'none';
         pages.forEach((page, i) => {
           setTimeout(() => {
-            page.style.transform = `translateY(${finalPositions[i]}px) rotate3d(1, 0, 0, 0deg)`;
+            page.style.setProperty('--final-y', finalPositions[i] + "px");
             page.classList.add('revealed');
             document.body.style.background = backgroundColors[i % backgroundColors.length];
             createMultipleEffects(page);
             window.scrollTo({ top: finalPositions[i], behavior: 'smooth' });
           }, i * cascadeDelay);
         });
+        // After all pages are revealed, scroll to the very bottom and reveal the bgMessage
+        setTimeout(() => {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+          const bgMessage = document.getElementById('bgMessage');
+          bgMessage.style.opacity = 1;
+          
+          // Add scroll listener to show/hide message
+          window.addEventListener('scroll', () => {
+            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+            bgMessage.style.opacity = scrolledToBottom ? '1' : '0';
+          });
+        }, pages.length * cascadeDelay + 1000);
       };
-
+      
       const createMultipleEffects = (page) => {
         for (let i = 0; i < 10; i++) {
           setTimeout(() => {
@@ -443,7 +470,7 @@
           }, i * 100);
         }
       };
-
+      
       const createAirParticle = (page, yPos = 0) => {
         const particle = document.createElement('div');
         particle.className = 'air-particle';
@@ -454,7 +481,7 @@
         page.appendChild(particle);
         setTimeout(() => particle.remove(), 2000);
       };
-
+      
       const createSwirl = (page, yPos = 0) => {
         const swirl = document.createElement('div');
         swirl.className = 'swirl';
@@ -465,7 +492,7 @@
         page.appendChild(swirl);
         setTimeout(() => swirl.remove(), 1500);
       };
-
+      
       const createConfetti = (intensity = 1) => {
         const count = Math.floor(15 * intensity);
         for (let i = 0; i < count; i++) {
@@ -478,24 +505,18 @@
           setTimeout(() => confetti.remove(), 3000);
         }
       };
-
+      
       pullTab.addEventListener('mousedown', startDrag);
       pullTab.addEventListener('touchstart', startDrag);
-
+      
       /* ===== ADD RANDOM SWIMMING BACKGROUND EMOJIS ===== */
-      // Set total number of background emojis
       const totalEmojis = 30;
-      // Bias the selection so stars appear more often.
-      // For example, 5 stars out of 8 total options.
       const emojiArray = ["⭐", "⭐", "⭐", "⭐", "⭐", "🎂", "🎁", "🍰", "☁️"];
-      // Function to bias left coordinate: 70% chance to be near the sides
       function getBiasedLeft() {
         if (Math.random() < 0.7) {
-          return Math.random() < 0.5 
-            ? (Math.random() * 20) + "%"  // left side: 0-20%
-            : (80 + Math.random() * 20) + "%"; // right side: 80-100%
+          return Math.random() < 0.5 ? (Math.random() * 20) + "%" : (80 + Math.random() * 20) + "%";
         } else {
-          return (20 + Math.random() * 60) + "%"; // center: 20-80%
+          return (20 + Math.random() * 60) + "%";
         }
       }
       const emojiOverlay = document.getElementById("emojiOverlay");
@@ -506,11 +527,9 @@
         emojiEl.innerText = chosenEmoji;
         emojiEl.style.top = Math.random() * 100 + "%";
         emojiEl.style.left = getBiasedLeft();
-        // For stars, assign a faster animation and add trail effect
         if (chosenEmoji === "⭐") {
           emojiEl.classList.add("star-emoji");
           emojiEl.style.animationDuration = (10 + Math.random() * 5) + "s";
-          // Create particle trail at regular intervals
           setInterval(() => {
             let rect = emojiEl.getBoundingClientRect();
             const particle = document.createElement("div");
