@@ -682,6 +682,353 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script> 
+<!-- Add this to the HEAD section of your HTML, just before the closing </head> tag -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Countdown Intro Screen Styles - Optimized for performance */
+  #countdownIntro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #feeeed; /* Soft background color instead of gradient for better performance */
+    z-index: 2000; /* Higher z-index to ensure it's on top */
+    opacity: 1;
+    transition: opacity 0.8s ease;
+    will-change: opacity; /* Performance optimization */
+  }
+  
+  .intro-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden; /* Contain particles for better performance */
+  }
+  
+  .intro-content {
+    text-align: center;
+    padding: 35px 25px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 10;
+    transform: translateY(0); /* Static position is better for performance */
+  }
+  
+  .intro-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+  }
+  
+  .intro-instructions {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: #444;
+    padding: 0 5px;
+  }
+  
+  .countdown-display {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 4.5rem;
+    margin: 15px 0;
+    color: #ff6b6b;
+    position: relative;
+    height: 5.5rem; /* Fixed height prevents layout shifts */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .countdown-number {
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: opacity, transform; /* Performance optimization */
+  }
+  
+  .countdown-number.fade-out {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+  
+  .countdown-number.fade-in {
+    opacity: 0;
+    transform: scale(0.8);
+    animation: fadeInNumber 0.3s forwards;
+  }
+  
+  @keyframes fadeInNumber {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .countdown-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .countdown-btn {
+    background-color: #ff6b6b; /* Solid color instead of gradient for performance */
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+  }
+  
+  .countdown-btn:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+  }
+  
+  .countdown-btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Simplified particle system for better performance */
+  .intro-emoji {
+    position: absolute;
+    opacity: 0.6;
+    pointer-events: none;
+    font-size: 1.4rem;
+    /* Use transform instead of position changes for better performance */
+    transform: translate(0, 0);
+    transition: transform 0.5s ease-out;
+  }
+  
+  /* Responsive adjustments */
+  @media only screen and (max-width: 480px) {
+    .intro-title {
+      font-size: 1.5rem;
+    }
+    
+    .intro-instructions {
+      font-size: 0.95rem;
+    }
+    
+    .countdown-display {
+      font-size: 4rem;
+    }
+    
+    .countdown-btn {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* iOS-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    .intro-content {
+      -webkit-transform: translateZ(0); /* Force GPU acceleration on iOS */
+    }
+    
+    .countdown-btn {
+      -webkit-appearance: none; /* Fix button styling on iOS */
+    }
+  }
+</style>
+
+<!-- Add this right after the opening <body> tag -->
+<div id="countdownIntro">
+  <div class="intro-wrapper">
+    <div class="intro-content">
+      <h1 class="intro-title">A Special Moment Awaits</h1>
+      <p class="intro-instructions">
+        <b>Before you begin:</b><br>
+        1. Smile <br>
+        2. Take the fragrance and spray into the air around you
+      </p>
+      <div class="countdown-display" id="countdownDisplay">
+        <div class="countdown-number" id="countdownNumber">10</div>
+      </div>
+      <div class="countdown-controls">
+        <button class="countdown-btn" id="pauseBtn">Pause</button>
+        <button class="countdown-btn" id="skipBtn">Skip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add this script just before the closing </body> tag -->
+<script>
+  // Countdown intro functionality - optimized for performance
+  document.addEventListener("DOMContentLoaded", function() {
+    const countdownIntro = document.getElementById("countdownIntro");
+    const countdownDisplay = document.getElementById("countdownDisplay");
+    let countdownNumberEl = document.getElementById("countdownNumber");
+    const pauseBtn = document.getElementById("pauseBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const introWrapper = document.querySelector(".intro-wrapper");
+    
+    // Elements that need to be shown after countdown
+    const mainElements = {
+      introImage: document.getElementById("introImage"),
+      pullTab: document.querySelector(".pull-tab"),
+      pullInstruction: document.querySelector(".pull-instruction")
+    };
+    
+    let countdown = 10;
+    let isPaused = false;
+    let countdownInterval;
+    let isTransitioning = false;
+    
+    // Simplified, performance-optimized particle system
+    createLightweightParticles();
+    
+    // Start the countdown with a small delay to ensure everything is loaded
+    setTimeout(startCountdown, 100);
+    
+    // Control buttons
+    pauseBtn.addEventListener("click", function() {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? "Resume" : "Pause";
+      
+      if (isPaused) {
+        clearInterval(countdownInterval);
+      } else {
+        startCountdown();
+      }
+    });
+    
+    skipBtn.addEventListener("click", function() {
+      completeCountdown();
+    });
+    
+    // Optimized countdown functionality
+    function startCountdown() {
+      // Clear any existing interval
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
+      
+      countdownInterval = setInterval(function() {
+        if (!isPaused && !isTransitioning) {
+          countdown--;
+          updateCountdownDisplay(countdown);
+          
+          if (countdown <= 0) {
+            completeCountdown();
+          }
+        }
+      }, 1000);
+    }
+    
+    function updateCountdownDisplay(number) {
+      // Prevent multiple transitions at once
+      if (isTransitioning) return;
+      isTransitioning = true;
+      
+      // Create new number element for smooth transition
+      const newNumber = document.createElement("div");
+      newNumber.className = "countdown-number fade-in";
+      newNumber.textContent = number;
+      newNumber.id = "countdownNumber";
+      
+      // Mark the old number for fadeout
+      if (countdownNumberEl) {
+        countdownNumberEl.classList.add("fade-out");
+        
+        // Remove old number after animation completes
+        setTimeout(() => {
+          if (countdownNumberEl && countdownNumberEl.parentNode) {
+            countdownNumberEl.remove();
+          }
+          isTransitioning = false;
+        }, 300);
+      }
+      
+      // Add the new number to the display container
+      countdownDisplay.appendChild(newNumber);
+      countdownNumberEl = newNumber;
+    }
+    
+    function completeCountdown() {
+      clearInterval(countdownInterval);
+      
+      // Optimize the transition by removing particles first
+      const particles = document.querySelectorAll(".intro-emoji");
+      particles.forEach(p => p.remove());
+      
+      // Fade out the countdown intro
+      countdownIntro.style.opacity = "0";
+      
+      // After fade out animation completes, hide the countdown intro
+      setTimeout(function() {
+        countdownIntro.style.display = "none";
+        
+        // Make sure the main content is visible
+        Object.values(mainElements).forEach(el => {
+          if (el) el.style.opacity = "1";
+        });
+      }, 800);
+    }
+    
+    function createLightweightParticles() {
+      const emojis = ["✨", "🎉", "🎊", "💫"];
+      const particleCount = Math.min(15, window.innerWidth < 600 ? 8 : 15); // Responsive particle count
+      
+      for (let i = 0; i < particleCount; i++) {
+        const emoji = document.createElement("div");
+        emoji.className = "intro-emoji";
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Position randomly around the content
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 100 + Math.random() * 150;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        
+        emoji.style.transform = `translate(${x}px, ${y}px)`;
+        emoji.style.opacity = 0.3 + Math.random() * 0.5;
+        
+        introWrapper.appendChild(emoji);
+        
+        // Use requestAnimationFrame for smoother animations
+        animateParticle(emoji, x, y);
+      }
+    }
+    
+    function animateParticle(emoji, baseX, baseY) {
+      const speedFactor = 0.8 + Math.random() * 0.4;
+      const startTime = Date.now();
+      const amplitude = 15 + Math.random() * 10;
+      
+      function move() {
+        const elapsed = (Date.now() - startTime) * speedFactor;
+        const dx = Math.sin(elapsed / 2000) * amplitude;
+        const dy = Math.cos(elapsed / 3000) * amplitude;
+        
+        emoji.style.transform = `translate(${baseX + dx}px, ${baseY + dy}px)`;
+        
+        if (countdownIntro.style.opacity !== "0") {
+          requestAnimationFrame(move);
+        }
+      }
+      
+      requestAnimationFrame(move);
+    }
+  });
+</script>
 
 </body>
 </html>
