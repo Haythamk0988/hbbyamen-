@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,8 @@
   <!-- Fonts: Poppins for body & Great Vibes for the birthday messge -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --pull-tab-bg: #ff4444;
@@ -294,28 +297,49 @@
   
   <div class="paper-container">
     <div class="paper-stack" id="paperStack">
-      <!-- PAGE 1 -->
-      <div class="paper-roll">
-        <div class="paper-content">
-          <div class="emoji-bar">❤️❤️❤️</div>
-          <h1 style="text-align: center;">🎉 Page 1: A Grand Beginning 🎉</h1>
-          <p class="birthday-text">
-            May this single pull unlock a world of celebration!<br />
-            Welcome to your birthday scroll—brimming with wonder and cheer.
-          </p>
-        </div>
-      </div>
-      <!-- PAGE 2 -->
-      <div class="paper-roll">
-        <div class="paper-content">
-          <div class="emoji-bar">✨✨✨</div>
-          <h1 style="text-align: center;">🎉 Page 2: Heartfelt Wishes 🎉</h1>
-          <p class="birthday-text">
-            With each revealed page, let your spirit shine.<br />
-            May laughter and joy follow you wherever you go.
-          </p>
-        </div>
-      </div>
+      <!-- PAGE 1 Replacement -->
+<div class="paper-roll">
+    <div class="paper-content">
+      <div class="emoji-bar">🎉🎈🥳</div>
+      <h1 style="text-align: center;">Happy birthday yamen</h1>
+      <p class="birthday-text">
+        Yo, Yamen! Today you level up to 18, and it’s absolutely wild!<br />
+        I still remember us goofing around and dreaming big as kids—now look at you, all grown and ready to take on the world!<br />
+        Turning 18 is like hitting the ultimate unlock code for new adventures, and I’m so stoked for you.<br />
+        It’s not just another birthday; it’s a full-on milestone that marks the start of epic stories waiting to happen.<br />
+        From late-night hangs to spontaneous road trips, I can’t wait to see you chase every crazy dream of yours.<br />
+        Life’s gonna throw some wild curves, but I know you’ll smash through them with that fearless spirit of yours.<br />
+        Here’s to endless laughs, deep convos, and moments that make you go “Whoa, did that really just happen?”<br />
+        Enjoy every bit of this insane ride, your best days are only getting started!
+      </p>
+    </div>
+  </div>
+  
+      <!-- PAGE 2 Replacement -->
+<div class="paper-roll">
+    <div class="paper-content">
+      <div class="emoji-bar">✨✨✨</div>
+      <h1 style="text-align: center;">15 Reasons to Be Happy</h1>
+      <ul style="font-family: 'Permanent Marker', cursive; font-size: 1.2em; color: #333; line-height: 1.6; list-style: disc; margin: 20px; background: #fffbcc; padding: 20px; border: 2px dashed #ffcc00; border-radius: 10px;">
+        <li>You have an amazing ability to dream big.</li>
+        <li>Every new day brings endless opportunities.</li>
+        <li>Your smile lights up every room you enter.</li>
+        <li>Adventure is waiting around every corner.</li>
+        <li>You’re brave enough to take on any challenge.</li>
+        <li>Your creativity makes the world a more colorful place.</li>
+        <li>You have a unique style that sets you apart.</li>
+        <li>Every moment is a chance to create something awesome.</li>
+        <li>Your humor brings joy to everyone around you.</li>
+        <li>You’re surrounded by friends who always have your back.</li>
+        <li>Every setback is just a setup for a comeback.</li>
+        <li>Your passion for life is totally contagious.</li>
+        <li>Even on tough days, you manage to find a reason to smile.</li>
+        <li>Your energy and enthusiasm light up the world.</li>
+        <li>The future holds endless possibilities just for you.</li>
+      </ul>
+    </div>
+  </div>
+  
       <!-- PAGE 3 -->
       <div class="paper-roll">
         <div class="paper-content">
@@ -547,5 +571,117 @@
       }
     })();
   </script>
+<audio id="bgMusic" loop>
+    <source src="yamen.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<button id="muteButton" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1001;
+">
+    🔊 Play Music
+</button>
+
+<script>
+// Add this to your existing JavaScript code at the end of your script
+document.addEventListener("DOMContentLoaded", function() {
+    const audio = document.getElementById("bgMusic");
+    const muteButton = document.getElementById("muteButton");
+    let isPlaying = false;
+    
+    // Simple function to play audio
+    function playMusic() {
+        if (!isPlaying) {
+            audio.volume = 0.05; // Lower volume to simulate muffled effect
+            audio.play().then(() => {
+                isPlaying = true;
+                muteButton.innerHTML = "🔊 Mute";
+                muteButton.style.background = "red";
+            }).catch(error => {
+                console.error("Playback failed:", error);
+            });
+        }
+    }
+    
+    // Function to handle mute button click
+    function toggleMute(e) {
+        e.stopPropagation(); // Prevent document click handler
+        
+        if (!isPlaying) {
+            playMusic();
+            return;
+        }
+        
+        if (audio.muted) {
+            audio.muted = false;
+            muteButton.innerHTML = "🔊 Mute";
+            muteButton.style.background = "red";
+        } else {
+            audio.muted = true;
+            muteButton.innerHTML = "🔇 Unmute";
+            muteButton.style.background = "green";
+        }
+    }
+    
+    // Attach to mute button
+    muteButton.addEventListener("click", toggleMute);
+    
+    // Connect to the existing pull mechanism - directly modify your existing code
+    const originalProgressiveReveal = window.progressiveRevealAll;
+    
+    if (typeof originalProgressiveReveal === 'function') {
+        window.progressiveRevealAll = function() {
+            // Call the original function
+            originalProgressiveReveal.apply(this, arguments);
+            // Play music after reveal starts
+            setTimeout(playMusic, 500);
+        };
+    } else {
+        // Add a listener to detect when the first page is revealed
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && 
+                    mutation.attributeName === 'class' &&
+                    mutation.target.classList.contains('revealed')) {
+                    playMusic();
+                    observer.disconnect();
+                }
+            });
+        });
+        
+        // Observe all paper-roll elements
+        document.querySelectorAll('.paper-roll').forEach(page => {
+            observer.observe(page, { attributes: true });
+        });
+    }
+    
+    // Add our function directly to the stopDrag function
+    const originalStopDrag = window.stopDrag;
+    if (typeof originalStopDrag === 'function') {
+        window.stopDrag = function() {
+            const result = originalStopDrag.apply(this, arguments);
+            
+            // Check if we need to trigger music
+            if (window.isDragging && window.currentY - window.startY > window.threshold) {
+                // The pull was successful, play music
+                setTimeout(playMusic, 800);
+            }
+            
+            return result;
+        };
+    }
+});
+</script> 
+
 </body>
 </html>
