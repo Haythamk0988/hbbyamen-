@@ -114,14 +114,14 @@
       top: 50px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(135deg, #ffb347, #ff4444);
+      background: linear-gradient(135deg, #ff6b6b, #ff4444);
       color: white;
       padding: 15px 40px;
       border-radius: 30px;
       border: 3px solid rgba(255, 255, 255, 0.8);
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(255, 68, 68, 0.3);
-      z-index: 999;
+      z-index: 1001;
       animation: pulseTab 2s ease-in-out infinite;
       transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
       font-weight: 700;
@@ -131,12 +131,14 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
     .pull-tab:before, .pull-tab:after { content: "🎁"; font-size: 1.2rem; }
     @keyframes pulseTab {
-      0% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-8px); }
-      100% { transform: translateX(-50%) translateY(0); }
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+      100% { transform: translateX(-50%) scale(1); }
     }
     .pull-tab:hover {
       transform: translateX(-50%) scale(1.08);
@@ -146,32 +148,36 @@
     
     .pull-instruction {
       position: fixed;
-      top: 110px;
+      top: 120px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
+      background: linear-gradient(135deg, #fff, #f8f9fa);
       color: #ff4444;
-      padding: 8px 15px;
+      padding: 12px 25px;
       border-radius: 20px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 998;
-      animation: fadeInOut 2s ease-in-out infinite;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      animation: floatInstruction 2s ease-in-out infinite;
+      border: 2px solid rgba(255, 68, 68, 0.2);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      white-space: nowrap;
     }
-    @keyframes fadeInOut {
-      0% { opacity: 0.7; }
-      50% { opacity: 1; }
-      100% { opacity: 0.7; }
+    @keyframes floatInstruction {
+      0% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+      100% { transform: translateX(-50%) translateY(0); }
     }
     
     @media only screen and (max-width: 768px) {
-      .pull-tab { top: 30px; padding: 12px 25px; font-size: 1rem; }
-      .pull-instruction { top: 90px; font-size: 0.8rem; }
+      .pull-tab { top: 30px; padding: 12px 30px; font-size: 1rem; }
+      .pull-instruction { top: 90px; font-size: 0.85rem; padding: 10px 20px; }
     }
     @media only screen and (max-width: 480px) {
-      .pull-tab { top: 20px; padding: 10px 20px; font-size: 0.9rem; width: 80%; }
-      .pull-instruction { top: 75px; font-size: 0.75rem; width: 80%; text-align: center; }
+      .pull-tab { top: 20px; width: 85%; padding: 10px 20px; font-size: 0.9rem; }
+      .pull-instruction { top: 75px; width: 80%; font-size: 0.8rem; text-align: center; }
     }
     
     /* ===== PAPER STACK & FOLDING ANIMATION ===== */
@@ -185,14 +191,14 @@
     }
     .paper-stack { 
       position: relative; 
-      height: 10000px; /* Updated to accommodate 10 pages */
+      height: 15000px; /* Updated to accommodate 10 pages */
       margin-top: 50px; /* Add initial spacing */
     }
     .paper-roll {
       position: absolute;
       width: 100%;
       min-height: 960px;
-      background-color: rgba(255,255,255,0.95);
+      background-color: rgba(255,255,255,0.98);
       background-image: linear-gradient(transparent 29px, rgba(0,0,0,0.05) 29px, rgba(0,0,0,0.05) 30px);
       background-size: 100% 30px;
       padding: 20px;
@@ -668,9 +674,11 @@
     .paper-roll:nth-child(2) li {
       margin: 15px 0;
       padding: 15px;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
       transition: transform 0.3s ease;
+      position: relative;
+      z-index: 1;
     }
     .paper-roll:nth-child(2) li:hover {
       transform: translateX(10px);
@@ -764,50 +772,91 @@
       <!-- PAGE 2 Replacement -->
 <div class="paper-roll">
     <div class="paper-content">
-      <div class="emoji-bar">✨✨✨</div>
+      <div class="emoji-bar">✨🌟💫</div>
       <h1 style="text-align: center;">15 Reasons to Be Happy</h1>
-      <ul style="font-family: 'Permanent Marker', cursive; font-size: 1.2em; color: #333; line-height: 1.6; list-style: disc; margin: 20px; background: #fffbcc; padding: 20px; border: 2px dashed #ffcc00; border-radius: 10px;">
-        <li>You have an amazing ability to dream big.</li>
-        <li>Every new day brings endless opportunities.</li>
-        <li>Your smile lights up every room you enter.</li>
-        <li>Adventure is waiting around every corner.</li>
-        <li>You're brave enough to take on any challenge.</li>
-        <li>Your creativity makes the world a more colorful place.</li>
-        <li>You have a unique style that sets you apart.</li>
-        <li>Every moment is a chance to create something awesome.</li>
-        <li>Your humor brings joy to everyone around you.</li>
-        <li>You're surrounded by friends who always have your back.</li>
-        <li>Every setback is just a setup for a comeback.</li>
-        <li>Your passion for life is totally contagious.</li>
-        <li>Even on tough days, you manage to find a reason to smile.</li>
-        <li>Your energy and enthusiasm light up the world.</li>
-        <li>The future holds endless possibilities just for you.</li>
+      <ul style="font-family: 'Permanent Marker', cursive; font-size: 1.2em; color: #333; line-height: 1.6; list-style: none; padding: 20px;">
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You have an amazing ability to dream big.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">✨ Every new day brings endless opportunities.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">💫 Your smile lights up every room you enter.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌈 Adventure is waiting around every corner.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">💪 You're brave enough to take on any challenge.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🎨 Your creativity makes the world more colorful.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You have a unique style that sets you apart.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">✨ Every moment is a chance to create something awesome.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">😊 Your humor brings joy to everyone around you.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🤝 You're surrounded by friends who have your back.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">💫 Every setback is just a setup for a comeback.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">⭐ Your passion for life is totally contagious.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You find reasons to smile even on tough days.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">✨ Your energy lights up the world.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🚀 The future holds endless possibilities for you.</li>
       </ul>
     </div>
   </div>
   
-      <!-- PAGE 3 -->
+      <!-- PAGE 3 Enhanced -->
       <div class="paper-roll">
         <div class="paper-content">
-          <div class="emoji-bar">💕💕💕</div>
-          <h1 style="text-align: center;">🎉 Page 3: Moments to Treasure 🎉</h1>
-          <p class="birthday-text">
-            Celebrate every precious memory you've gathered so far,<br />
-            and look forward to countless more yet to come.
+          <div class="emoji-bar">💫🌟✨</div>
+          <h1 style="text-align: center;">Treasured Moments & Dreams</h1>
+          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div style="text-align: center; margin-bottom: 30px;">
+              <h2 style="color: #43a047; font-family: 'Dancing Script', cursive; font-size: 2em; margin-bottom: 20px;">Your Journey So Far</h2>
+              <p style="font-size: 1.2em; line-height: 1.8; color: #2e7d32;">
+                Every laugh shared, every challenge overcome,<br>
+                Every dream chased, every victory won,<br>
+                Has shaped the amazing person you are today!
           </p>
         </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+              <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px; text-align: center;">
+                <h3 style="color: #43a047; margin-bottom: 15px;">🌟 Yesterday's Memories</h3>
+                <p>Each memory is a golden thread in the tapestry of your life's story.</p>
       </div>
-      <!-- PAGE 4 -->
+              <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px; text-align: center;">
+                <h3 style="color: #43a047; margin-bottom: 15px;">✨ Tomorrow's Dreams</h3>
+                <p>Your future is as bright as your dreams and as boundless as your imagination.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 4 Enhanced -->
       <div class="paper-roll">
         <div class="paper-content">
-          <div class="emoji-bar">🌟🌟🌟</div>
-          <h1 style="text-align: center;">🎉 Page 4: Dreams & Adventures 🎉</h1>
-          <p class="birthday-text">
-            Let new adventures beckon you onward,<br />
-            guiding you toward dreams that spark your imagination.
+          <div class="emoji-bar">🌠🎯💫</div>
+          <h1 style="text-align: center;">Your Adventure Awaits</h1>
+          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div style="text-align: center; margin-bottom: 30px;">
+              <h2 style="color: #1e88e5; font-family: 'Pacifico', cursive; font-size: 2em; margin-bottom: 20px;">The Road Ahead</h2>
+              <p style="font-size: 1.2em; line-height: 1.8; color: #1565c0;">
+                At 18, you're standing at the threshold of endless possibilities.<br>
+                Every dream is within reach, every goal attainable!
           </p>
         </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
+              <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px; text-align: center;">
+                <h3 style="color: #1e88e5; margin-bottom: 15px;">🎯 Your Goals</h3>
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                  <li style="margin: 10px 0;">🌟 Chase your passions</li>
+                  <li style="margin: 10px 0;">💫 Create your path</li>
+                  <li style="margin: 10px 0;">✨ Make your mark</li>
+                </ul>
       </div>
+              <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px; text-align: center;">
+                <h3 style="color: #1e88e5; margin-bottom: 15px;">💫 Your Journey</h3>
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                  <li style="margin: 10px 0;">🌠 Embrace challenges</li>
+                  <li style="margin: 10px 0;">🎯 Stay determined</li>
+                  <li style="margin: 10px 0;">⭐ Keep shining</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- PAGE 5 -->
       <div class="paper-roll">
         <div class="paper-content">
@@ -983,7 +1032,7 @@
       const pages = Array.from(document.querySelectorAll('.paper-roll'));
       const introImage = document.getElementById('introImage');
       // Final positions for each page after reveal - Updated for 10 pages
-      const finalPositions = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000];
+      const finalPositions = [0, 1000, 2500, 3500, 4500, 5500, 6500, 7500, 8500, 9500];
       let isDragging = false, startY = 0, currentY = 0;
       const threshold = 200;
       const cascadeDelay = parseInt(getComputedStyle(document.documentElement)
@@ -1092,27 +1141,27 @@
           });
           
           // Reveal pages with a slide-up animation
-          pages.forEach((page, i) => {
-            setTimeout(() => {
+        pages.forEach((page, i) => {
+          setTimeout(() => {
               document.body.style.background = backgroundColors[i];
               
               page.style.opacity = '1';
               page.style.visibility = 'visible';
-              page.classList.add('revealed');
+            page.classList.add('revealed');
               
-              createMultipleEffects(page);
+            createMultipleEffects(page);
               
               const pageTop = page.offsetTop - 20;
               window.scrollTo({ 
                 top: pageTop, 
                 behavior: 'smooth' 
               });
-            }, i * cascadeDelay);
-          });
+          }, i * cascadeDelay);
+        });
         } else {
           // Updated desktop animation with proper spacing for all pages
           pages.forEach((page, i) => {
-            setTimeout(() => {
+        setTimeout(() => {
               const finalY = finalPositions[i];
               page.style.setProperty('--final-y', finalY + "px");
               page.classList.add('revealed');
@@ -1221,6 +1270,13 @@
           pages.forEach(page => {
             page.style.position = 'relative';
             page.style.top = 'auto';
+            page.style.left = 'auto';
+            page.style.transform = 'none';
+            page.style.opacity = '0';
+            page.style.visibility = 'hidden';
+            page.style.height = 'auto';
+            page.style.minHeight = 'auto';
+            page.style.marginBottom = '100px'; // Add spacing between papers on mobile
           });
         }
       });
@@ -1543,9 +1599,9 @@ document.addEventListener("DOMContentLoaded", function() {
       
       // Create new number after a short delay
       setTimeout(() => {
-        const newNumber = document.createElement("div");
-        newNumber.className = "countdown-number fade-in";
-        newNumber.textContent = number;
+      const newNumber = document.createElement("div");
+      newNumber.className = "countdown-number fade-in";
+      newNumber.textContent = number;
         
         if (number <= 3) {
           newNumber.style.color = "#ff4444";
@@ -1557,7 +1613,7 @@ document.addEventListener("DOMContentLoaded", function() {
         setTimeout(() => {
           isTransitioning = false;
         }, 300);
-      }, 300);
+        }, 300);
     }
     
     function completeCountdown() {
@@ -1575,26 +1631,42 @@ document.addEventListener("DOMContentLoaded", function() {
       
       // Fade out the countdown intro
       setTimeout(() => {
-        countdownIntro.style.opacity = "0";
-        
-        // After fade out animation completes, hide the countdown intro
+      countdownIntro.style.opacity = "0";
+      
+      // After fade out animation completes, hide the countdown intro
         setTimeout(() => {
-          countdownIntro.style.display = "none";
-          
-          // Make sure the main content is visible
+        countdownIntro.style.display = "none";
+        
+        // Make sure the main content is visible
           const mainElements = {
             introImage: document.getElementById("introImage"),
             pullTab: document.querySelector(".pull-tab"),
             pullInstruction: document.querySelector(".pull-instruction")
           };
           
-          Object.values(mainElements).forEach(el => {
+        Object.values(mainElements).forEach(el => {
             if (el) {
               el.style.opacity = "1";
               el.style.visibility = "visible";
             }
           });
-        }, 800);
+
+          // Play music after countdown naturally ends
+          const audio = document.getElementById("bgMusic");
+          if (audio && !audio.playing) {
+            audio.volume = 0.05;
+            audio.play().then(() => {
+              isPlaying = true;
+              const muteButton = document.getElementById("muteButton");
+              if (muteButton) {
+                muteButton.innerHTML = "🔊 Mute";
+                muteButton.style.background = "red";
+              }
+            }).catch(error => {
+              console.error("Playback failed:", error);
+            });
+          }
+      }, 800);
       }, 1000);
     }
     
@@ -1778,8 +1850,8 @@ function initializeEmojis() {
 window.addEventListener('resize', () => {
   if (hasInitializedEmojis) {
     debounce(initializeEmojis, 300)();
-  }
-});
+    }
+  });
 </script>
 
 </body>
