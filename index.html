@@ -3,11 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Single Pull - Automatic Cascade</title>
+  <title>Happy Birthday Yamen! 🎉</title>
   <!-- Fonts: Poppins for body & Great Vibes for the birthday messge -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <!-- Add more decorative fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -46,14 +52,17 @@
       transform: translate(-50%, -50%);
       max-width: 80%;
       max-height: 80%;
-      z-index: 900;
-      transition: opacity 1s ease;
+      z-index: 1000;
+      transition: all 0.5s ease;
       border: 5px solid #fff;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      opacity: 1;
+      transform-origin: center;
     }
     #introImage.hide {
       opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
       pointer-events: none;
     }
     
@@ -174,7 +183,11 @@
       z-index: 10;
       perspective: 1200px;
     }
-    .paper-stack { position: relative; height: 6000px; }
+    .paper-stack { 
+      position: relative; 
+      height: 10000px; /* Updated to accommodate 10 pages */
+      margin-top: 50px; /* Add initial spacing */
+    }
     .paper-roll {
       position: absolute;
       width: 100%;
@@ -190,6 +203,7 @@
       transition: transform var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1), 
                   box-shadow var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 1;
+      margin-bottom: 100px; /* Add spacing between papers */
     }
     .paper-roll.revealed {
       animation: foldAnimation var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -278,6 +292,7 @@
       pointer-events: none;
       mix-blend-mode: overlay;
       white-space: nowrap;
+      display: none;
     }
 
     /* iPhone XR Specific Styles */
@@ -535,6 +550,182 @@
         -webkit-appearance: none;
       }
     }
+
+    /* Unique page decorations */
+    .paper-roll:nth-child(1) {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+      border: 3px solid #ffcdd2;
+      box-shadow: 0 10px 30px rgba(255, 82, 82, 0.2);
+    }
+    .paper-roll:nth-child(1) h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #ff6b6b;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .paper-roll:nth-child(2) {
+      background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+      border: 3px solid #ffe0b2;
+      box-shadow: 0 10px 30px rgba(255, 193, 7, 0.2);
+    }
+    .paper-roll:nth-child(2) h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ffa000;
+    }
+
+    .paper-roll:nth-child(3) {
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+      border: 3px solid #c8e6c9;
+      box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+    }
+    .paper-roll:nth-child(3) h1 {
+      font-family: 'Lobster', cursive;
+      color: #43a047;
+    }
+
+    .paper-roll:nth-child(4) {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      border: 3px solid #bbdefb;
+      box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2);
+    }
+    .paper-roll:nth-child(4) h1 {
+      font-family: 'Satisfy', cursive;
+      color: #1e88e5;
+    }
+
+    .paper-roll:nth-child(5) {
+      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+      border: 3px solid #e1bee7;
+      box-shadow: 0 10px 30px rgba(156, 39, 176, 0.2);
+    }
+    .paper-roll:nth-child(5) h1 {
+      font-family: 'Kaushan Script', cursive;
+      color: #8e24aa;
+    }
+
+    .paper-roll:nth-child(6) {
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+      border: 3px solid #f8bbd0;
+      box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+    }
+    .paper-roll:nth-child(6) h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #d81b60;
+    }
+
+    .paper-roll:nth-child(7) {
+      background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+      border: 3px solid #fff9c4;
+      box-shadow: 0 10px 30px rgba(255, 235, 59, 0.2);
+    }
+    .paper-roll:nth-child(7) h1 {
+      font-family: 'Pacifico', cursive;
+      color: #fdd835;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .paper-roll:nth-child(8) {
+      background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+      border: 3px solid #c5cae9;
+      box-shadow: 0 10px 30px rgba(63, 81, 181, 0.2);
+    }
+    .paper-roll:nth-child(8) h1 {
+      font-family: 'Lobster', cursive;
+      color: #3949ab;
+    }
+
+    .paper-roll:nth-child(9) {
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+      border: 3px solid #b2ebf2;
+      box-shadow: 0 10px 30px rgba(0, 188, 212, 0.2);
+    }
+    .paper-roll:nth-child(9) h1 {
+      font-family: 'Satisfy', cursive;
+      color: #00acc1;
+    }
+
+    .paper-roll:nth-child(10) {
+      background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+      border: 3px solid #dcedc8;
+      box-shadow: 0 10px 30px rgba(139, 195, 74, 0.2);
+    }
+    .paper-roll:nth-child(10) h1 {
+      font-family: 'Kaushan Script', cursive;
+      color: #7cb342;
+    }
+
+    /* Enhanced paper content styles */
+    .paper-content {
+      padding: 30px;
+      border-radius: 15px;
+    }
+
+    /* Unique list styles for each page */
+    .paper-roll:nth-child(2) ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .paper-roll:nth-child(2) li {
+      margin: 15px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+    .paper-roll:nth-child(2) li:hover {
+      transform: translateX(10px);
+    }
+
+    /* Memory collection page styling */
+    .paper-roll:nth-child(7) .memory-card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .paper-roll:nth-child(7) .memory-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Playlist page styling */
+    .paper-roll:nth-child(8) .song-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+    .paper-roll:nth-child(8) .song-item:hover {
+      background: rgba(255, 255, 255, 0.95);
+      transform: scale(1.02);
+    }
+
+    /* Challenge list styling */
+    .paper-roll:nth-child(9) ol {
+      columns: 2;
+      column-gap: 40px;
+    }
+    .paper-roll:nth-child(9) li {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      break-inside: avoid;
+    }
+
+    /* Final message styling */
+    .paper-roll:nth-child(10) .final-message {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -628,6 +819,157 @@
           </p>
         </div>
       </div>
+
+      <!-- PAGE 6: Future Goals Vision Board -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">🎯🌟✨</div>
+          <h1 style="text-align: center;">Your Epic Future Awaits</h1>
+          <div style="background: linear-gradient(135deg, #fff5f5, #fff0ea); padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h2 style="color: #ff6b6b; text-align: center; margin-bottom: 20px;">18 Years Young: Your Adventure Begins</h2>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin: 15px 0; padding-left: 30px; position: relative;">
+                <span style="position: absolute; left: 0;">🎓</span>
+                <strong>Education Goals:</strong> Chase those dreams, whether it's college, skills, or creative pursuits
+              </li>
+              <li style="margin: 15px 0; padding-left: 30px; position: relative;">
+                <span style="position: absolute; left: 0;">💪</span>
+                <strong>Personal Growth:</strong> Level up your skills, discover new passions, and push your limits
+              </li>
+              <li style="margin: 15px 0; padding-left: 30px; position: relative;">
+                <span style="position: absolute; left: 0;">🌍</span>
+                <strong>Adventures:</strong> Travel, explore, and create memories that'll last a lifetime
+              </li>
+              <li style="margin: 15px 0; padding-left: 30px; position: relative;">
+                <span style="position: absolute; left: 0;">💫</span>
+                <strong>Dreams:</strong> Keep dreaming big and turning those dreams into reality
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 7: Memory Collection -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">📸💭💝</div>
+          <h1 style="text-align: center;">Snapshots of Joy</h1>
+          <div class="memory-collection">
+            <div class="memory-card">
+              <h3>✨ Epic Memory #1</h3>
+              <p>That time we couldn't stop laughing during the movie night</p>
+            </div>
+            <div class="memory-card">
+              <h3>✨ Epic Memory #2</h3>
+              <p>When we tried to cook and almost burned the kitchen</p>
+            </div>
+            <div class="memory-card">
+              <h3>✨ Epic Memory #3</h3>
+              <p>Our legendary gaming marathons that lasted till dawn</p>
+            </div>
+            <div class="memory-card">
+              <h3>✨ Epic Memory #4</h3>
+              <p>That road trip where we got lost but found adventure</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 8: Birthday Playlist -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">🎵🎧🎸</div>
+          <h1 style="text-align: center;">Your Birthday Soundtrack</h1>
+          <div class="playlist-container">
+            <div class="song-item">
+              <span class="song-emoji">🎵</span>
+              <div class="song-details">
+                <strong>"On Top of the World"</strong>
+                <span>Imagine Dragons</span>
+              </div>
+            </div>
+            <div class="song-item">
+              <span class="song-emoji">🎵</span>
+              <div class="song-details">
+                <strong>"The Nights"</strong>
+                <span>Avicii</span>
+              </div>
+            </div>
+            <div class="song-item">
+              <span class="song-emoji">🎵</span>
+              <div class="song-details">
+                <strong>"Young Forever"</strong>
+                <span>Jay-Z</span>
+              </div>
+            </div>
+            <div class="song-item">
+              <span class="song-emoji">🎵</span>
+              <div class="song-details">
+                <strong>"Best Day of My Life"</strong>
+                <span>American Authors</span>
+              </div>
+            </div>
+            <div class="song-item">
+              <span class="song-emoji">🎵</span>
+              <div class="song-details">
+                <strong>"Hall of Fame"</strong>
+                <span>The Script</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 9: Birthday Challenges -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">🎲🎮🎯</div>
+          <h1 style="text-align: center;">18th Birthday Challenge List</h1>
+          <div class="challenges-container">
+            <ol>
+              <li>Try a completely new food 🍜</li>
+              <li>Learn a new dance move 💃</li>
+              <li>Take a spontaneous road trip 🚗</li>
+              <li>Make someone's day better 💝</li>
+              <li>Learn to cook something fancy 👨‍🍳</li>
+              <li>Start a new hobby 🎨</li>
+              <li>Watch the sunrise 🌅</li>
+              <li>Plant something and watch it grow 🌱</li>
+              <li>Write a letter to future you ✉️</li>
+              <li>Make a time capsule 📦</li>
+              <li>Do something that scares you 💪</li>
+              <li>Learn a new skill 🎯</li>
+              <li>Make a new friend 🤝</li>
+              <li>Create something with your hands 🛠️</li>
+              <li>Take a photo every day for a week 📸</li>
+              <li>Do a random act of kindness ❤️</li>
+              <li>Start a collection of something 🗂️</li>
+              <li>Make a bucket list for the year ✨</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 10: Final Message -->
+      <div class="paper-roll">
+        <div class="paper-content">
+          <div class="emoji-bar">💫🌟✨</div>
+          <h1 style="text-align: center;">A Final Birthday Wish</h1>
+          <div class="final-message">
+            <p style="font-family: 'Great Vibes', cursive; font-size: 2em; line-height: 1.5;">
+              As this birthday message comes to an end,<br>
+              Remember you're not just a year older, but a year more awesome!<br>
+              Your journey is just beginning, and the world is yours to conquer.<br>
+              Keep shining bright, stay amazing, and never stop being you!<br><br>
+              Happy 18th Birthday!
+            </p>
+            <div style="margin-top: 30px; font-family: 'Permanent Marker', cursive; color: #7cb342;">
+              With love and best wishes,<br>
+              Your Friend
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -640,15 +982,20 @@
       const instruction = document.querySelector('.pull-instruction');
       const pages = Array.from(document.querySelectorAll('.paper-roll'));
       const introImage = document.getElementById('introImage');
-      // Final positions for each page after reveal
-      const finalPositions = [0, 1000, 2000, 3000, 4000];
+      // Final positions for each page after reveal - Updated for 10 pages
+      const finalPositions = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000];
       let isDragging = false, startY = 0, currentY = 0;
       const threshold = 200;
       const cascadeDelay = parseInt(getComputedStyle(document.documentElement)
                                .getPropertyValue('--cascade-delay'));
       
-      // Background colors for page reveals
+      // Background colors for page reveals - Extended for 10 pages
       const backgroundColors = [
+        'var(--color1)',
+        'var(--color2)',
+        'var(--color3)',
+        'var(--color4)',
+        'var(--color5)',
         'var(--color1)',
         'var(--color2)',
         'var(--color3)',
@@ -712,7 +1059,7 @@
         introImage.classList.add('hide');
         setTimeout(() => {
           if (introImage.parentNode) introImage.parentNode.removeChild(introImage);
-        }, 1000);
+        }, 500); // Reduced from 1000ms to 500ms
       }
       
       const progressiveRevealAll = () => {
@@ -722,12 +1069,12 @@
         const isMobile = window.innerWidth <= 768;
         
         if (isMobile) {
-          // For mobile devices, completely different approach
           document.body.style.background = backgroundColors[0];
           
-          // Make sure intro image is fully gone
+          // Make sure intro image is fully gone and papers are properly hidden
           if (introImage) {
             introImage.style.opacity = '0';
+            introImage.style.transform = 'translate(-50%, -50%) scale(0.8)';
             introImage.style.visibility = 'hidden';
           }
           
@@ -741,23 +1088,20 @@
             page.style.visibility = 'hidden';
             page.style.height = 'auto';
             page.style.minHeight = 'auto';
+            page.style.marginBottom = '100px'; // Add spacing between papers on mobile
           });
           
           // Reveal pages with a slide-up animation
           pages.forEach((page, i) => {
             setTimeout(() => {
-              // Change background color
-              document.body.style.background = backgroundColors[i % backgroundColors.length];
+              document.body.style.background = backgroundColors[i];
               
-              // Add custom animation instead of using the class
               page.style.opacity = '1';
               page.style.visibility = 'visible';
               page.classList.add('revealed');
               
-              // Create effects
               createMultipleEffects(page);
               
-              // Scroll to the page
               const pageTop = page.offsetTop - 20;
               window.scrollTo({ 
                 top: pageTop, 
@@ -766,28 +1110,22 @@
             }, i * cascadeDelay);
           });
         } else {
-          // Original desktop animation
+          // Updated desktop animation with proper spacing for all pages
           pages.forEach((page, i) => {
             setTimeout(() => {
-              page.style.setProperty('--final-y', finalPositions[i] + "px");
+              const finalY = finalPositions[i];
+              page.style.setProperty('--final-y', finalY + "px");
               page.classList.add('revealed');
-              document.body.style.background = backgroundColors[i % backgroundColors.length];
+              document.body.style.background = backgroundColors[i];
               createMultipleEffects(page);
-              window.scrollTo({ top: finalPositions[i], behavior: 'smooth' });
+              window.scrollTo({ top: finalY, behavior: 'smooth' });
             }, i * cascadeDelay);
           });
         }
 
         // After all pages are revealed
         setTimeout(() => {
-          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-          const bgMessage = document.getElementById('bgMessage');
-          bgMessage.style.opacity = 1;
-          
-          window.addEventListener('scroll', () => {
-            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-            bgMessage.style.opacity = scrolledToBottom ? '1' : '0';
-          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }, pages.length * cascadeDelay + 1000);
       };
       
