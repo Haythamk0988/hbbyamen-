@@ -7,7 +7,208 @@
   <!-- Consolidated Google Fonts import with display swap -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&family=Permanent+Marker&family=Dancing+Script:wght@700&family=Pacifico&family=Lobster&family=Satisfy&family=Kaushan+Script&display=swap" rel="stylesheet">
 
+  <style><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Yamen! 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&family=Permanent+Marker&family=Dancing+Script:wght@700&family=Pacifico&family=Lobster&family=Satisfy&family=Kaushan+Script&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+        --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        --font-decorative: "Great Vibes", "Dancing Script", cursive;
+        --pull-tab-bg: #ff4444;
+        --text-color: #333;
+        --transition-duration: 0.8s;
+        --cascade-delay: 1000ms;
+        --color1: #ff9a9e;
+        --color2: #f6d365;
+        --color3: #fda085;
+        --color4: #a1c4fd;
+        --color5: #cfd9df;
+    }
+    
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        min-height: 100vh;
+        font-family: var(--font-primary);
+        overflow-x: hidden;
+        cursor: grab;
+        background: white;
+        transition: background 1s ease;
+    }
+    
+    #introImage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 80%;
+      max-height: 80%;
+      z-index: 1000;
+      transition: all 0.5s ease;
+      border: 5px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      opacity: 1;
+      transform-origin: center;
+    }
+    #introImage.hide {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+      pointer-events: none;
+    }
+    
+    #emojiOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-emoji {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.7;
+      animation: swim 30s ease-in-out infinite;
+    }
+    .star-emoji {
+      text-shadow: 0 0 5px gold, 0 0 10px gold, 0 0 15px gold;
+    }
+    @keyframes swim {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(15px, -10px); }
+      50% { transform: translate(30px, 10px); }
+      75% { transform: translate(15px, 20px); }
+      100% { transform: translate(0, 0); }
+    }
+    
+    .star-particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: gold;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: starParticleTrail 0.5s linear forwards;
+    }
+    @keyframes starParticleTrail {
+      from { transform: translate(0, 0); opacity: 1; }
+      to { transform: translate(10px, 10px); opacity: 0; }
+    }
+    
+    .pull-tab {
+      position: fixed;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #ff6b6b, #ff4444);
+      color: white;
+      padding: 15px 40px;
+      border-radius: 30px;
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 68, 68, 0.3);
+      z-index: 1001;
+      animation: pulseTab 2s ease-in-out infinite;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    .pull-tab:before, .pull-tab:after { content: "🎁"; font-size: 1.2rem; }
+    @keyframes pulseTab {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+    .pull-tab:hover {
+      transform: translateX(-50%) scale(1.08);
+      background: linear-gradient(135deg, #ff9a9e, #ff5757);
+      box-shadow: 0 12px 30px rgba(255, 68, 68, 0.4);
+    }
+    
+    .pull-instruction {
+      position: fixed;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #fff, #f8f9fa);
+      color: #ff4444;
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      animation: floatInstruction 2s ease-in-out infinite;
+      border: 2px solid rgba(255, 68, 68, 0.2);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      white-space: nowrap;
+    }
+    @keyframes floatInstruction {
+      0% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+      100% { transform: translateX(-50%) translateY(0); }
+    }
+    
+    @media only screen and (max-width: 768px) {
+      .pull-tab { top: 30px; padding: 12px 30px; font-size: 1rem; }
+      .pull-instruction { top: 90px; font-size: 0.85rem; padding: 10px 20px; }
+    }
+    @media only screen and (max-width: 480px) {
+      .pull-tab { top: 20px; width: 85%; padding: 10px 20px; font-size: 0.9rem; }
+      .pull-instruction { top: 75px; width: 80%; font-size: 0.8rem; text-align: center; }
+    }
+    
+    .paper-container {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      margin: 120px auto 0;
+      z-index: 10;
+      perspective: 1200px;
+    }
+    .paper-stack { 
+      position: relative; 
+      height: 15000px; 
+      margin-top: 50px; 
+    }
+    .paper-roll {
+      position: absolute;
+      width: 100%;
+      min-height: 960px;
+      background-color: rgba(255,255,255,0.98);
+      background-image: linear-gradient(transparent 29px, rgba(0,0,0,0.05) 29px, rgba(0,0,0,0.05) 30px);
+      background-size: 100% 30px;
+      padding: 20px;
+      border-radius: 0 0 0 20px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transform-origin: top center;
+      transform: translateY(-150%) rotateX(15deg) scale(0.95);
+      transition: transform var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1), 
+                  box-shadow var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 1;
+      margin-bottom: 100px; 
+    }
+    .paper-roll.revealed {
+      animation: foldAnimation var
     :root {
         --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
         --font-decorative: "Great Vibes", "Dancing Script", cursive;
@@ -68,7 +269,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
     }
     .bg-emoji {
       position: absolute;
@@ -743,11 +944,11 @@
       position: relative;
       z-index: 1000;
       padding: 20px;
-      background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      animation: gradientBG 10s ease infinite;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
 
     .rainbow-word {
@@ -927,7 +1128,6 @@
       border: 3px solid #ffcdd2;
       animation: glowingBorder 3s infinite;
       overflow: hidden;
-      z-index: 5;
     }
 
     .birthday-heading {
@@ -938,8 +1138,6 @@
       margin-bottom: 30px;
       animation: floatingText 3s ease-in-out infinite;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 10;
     }
 
     .birthday-message {
@@ -1188,111 +1386,217 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
-    /* Remove sparkle styles and replace with new animations */
-    @keyframes softGlow {
-      0%, 100% { text-shadow: 0 0 5px rgba(255, 223, 0, 0.3), 0 0 10px rgba(255, 223, 0, 0.2); }
-      50% { text-shadow: 0 0 10px rgba(255, 223, 0, 0.5), 0 0 20px rgba(255, 223, 0, 0.3); }
+    /* Update final message style to remove dots */
+    #finalMessage {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #ffffff;
+      opacity: 0;
+      transition: all 1.5s ease;
+      position: relative;
+      z-index: 1000;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
 
+    /* Unique animations for pages 5-8 */
     @keyframes gentleWave {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(5px); }
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(2px, -2px) rotate(0.5deg); }
+      50% { transform: translate(0, -4px) rotate(-0.5deg); }
+      75% { transform: translate(-2px, -2px) rotate(0.5deg); }
+    }
+
+    @keyframes softGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+      50% { box-shadow: 0 0 20px rgba(255,255,255,0.4); }
     }
 
     @keyframes subtlePop {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
+      85% { transform: scale(1); }
+      90% { transform: scale(1.02); }
+      95% { transform: scale(0.98); }
     }
 
-    @keyframes colorCycle {
-      0% { color: #ff69b4; }
-      25% { color: #da70d6; }
-      50% { color: #9370db; }
-      75% { color: #ba55d3; }
-      100% { color: #ff69b4; }
+    @keyframes gentleSpin {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(2deg); }
+      75% { transform: rotate(-2deg); }
+      100% { transform: rotate(0deg); }
     }
 
-    /* Page 5 unique animations */
+    /* Page 5 - Gentle floating elements */
     .paper-roll:nth-child(5) .paper-content {
-      position: relative;
-    }
-
-    .paper-roll:nth-child(5) p {
-      transition: all 0.3s ease;
-    }
-
-    .paper-roll:nth-child(5) p:hover {
-      letter-spacing: 0.3px;
-    }
-
-    /* Special glow for the word "proud" */
-    .paper-roll:nth-child(5) p:contains("proud") {
-      display: inline;
-    }
-
-    .paper-roll:nth-child(5) .proud-text {
-      animation: softGlow 2s ease-in-out infinite;
-      color: #ffd700;
-      font-weight: bold;
-    }
-
-    /* Page 6 unique animations */
-    .paper-roll:nth-child(6) li {
       position: relative;
       overflow: hidden;
     }
 
-    .paper-roll:nth-child(6) li::before {
-      content: '✨';
-      position: absolute;
-      left: -20px;
-      opacity: 0;
-      transition: all 0.3s ease;
+    .paper-roll:nth-child(5) .floating-item {
+      animation: gentleWave 6s ease-in-out infinite;
     }
 
-    .paper-roll:nth-child(6) li:hover::before {
-      left: 0;
-      opacity: 1;
+    .paper-roll:nth-child(5) h1 {
+      animation: softGlow 4s ease-in-out infinite;
+    }
+
+    /* Page 6 - Subtle popping elements */
+    .paper-roll:nth-child(6) li {
+      animation: subtlePop 8s ease-in-out infinite;
+      animation-delay: calc(var(--i, 0) * 1s);
+    }
+
+    .paper-roll:nth-child(6) li:nth-child(odd) {
+      --i: 1;
+    }
+
+    .paper-roll:nth-child(6) li:nth-child(even) {
+      --i: 2;
     }
 
     .paper-roll:nth-child(6) span {
-      animation: gentleWave 3s ease-in-out infinite;
       display: inline-block;
+      transform-origin: center;
+      animation: gentleSpin 4s ease-in-out infinite;
     }
 
-    /* Page 7 unique animations */
+    /* Page 7 - Memory cards with depth */
     .paper-roll:nth-child(7) .memory-card {
       position: relative;
+      transition: transform 0.3s ease;
     }
 
-    .paper-roll:nth-child(7) .memory-card h3 {
-      animation: colorCycle 8s infinite;
+    .paper-roll:nth-child(7) .memory-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 55%, transparent 60%);
+      background-size: 200% 200%;
+      animation: gentleWave 8s linear infinite;
+      pointer-events: none;
     }
 
-    .paper-roll:nth-child(7) .memory-card:hover {
-      background: linear-gradient(45deg, rgba(255,255,255,0.95), rgba(255,192,203,0.2));
+    .paper-roll:nth-child(7) h3 {
+      position: relative;
+      display: inline-block;
+      animation: softGlow 3s ease-in-out infinite;
     }
 
-    /* Page 8 unique animations */
+    /* Page 8 - Musical vibes */
     .paper-roll:nth-child(8) .song-item {
       position: relative;
-      border-left: 3px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    .paper-roll:nth-child(8) .song-item:hover {
-      border-left: 3px solid #ff69b4;
-      padding-left: 15px;
+      overflow: hidden;
     }
 
     .paper-roll:nth-child(8) .song-emoji {
       display: inline-block;
-      animation: subtlePop 2s ease-in-out infinite;
+      animation: gentleSpin 3s ease-in-out infinite;
     }
 
-    /* Remove white dots by updating sparkle styles */
-    #finalMessage .sparkle {
-      display: none;
+    .paper-roll:nth-child(8) .song-details {
+      position: relative;
+    }
+
+    .paper-roll:nth-child(8) .song-details::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, currentColor, transparent);
+      opacity: 0.3;
+      animation: gentleWave 4s ease-in-out infinite;
+    }
+
+    /* Add styles for glowing text effects */
+    .glow-proud {
+      position: relative;
+      display: inline-block;
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
+                   0 0 20px rgba(255, 215, 0, 0.3),
+                   0 0 30px rgba(255, 215, 0, 0.2);
+      animation: proudGlow 2s ease-in-out infinite;
+    }
+
+    .best-friend-highlight {
+      position: relative;
+      display: inline-block;
+      color: inherit;
+    }
+
+    .best-friend-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        rgba(255, 215, 0, 0), 
+        rgba(255, 215, 0, 0.8), 
+        rgba(255, 215, 0, 0));
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      animation: borderGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes proudGlow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
+                             0 0 20px rgba(255, 215, 0, 0.3),
+                             0 0 30px rgba(255, 215, 0, 0.2); }
+      50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.7),
+                         0 0 25px rgba(255, 215, 0, 0.5),
+                         0 0 35px rgba(255, 215, 0, 0.3); }
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { opacity: 0.6; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+      50% { opacity: 1; box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+    }
+
+    /* Update final message to remove dots and shadow */
+    #finalMessage {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #ffffff;
+      opacity: 0;
+      transition: all 1.5s ease;
+      position: relative;
+      z-index: 1000;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 15px;
+    }
+
+    .message-content {
+      background: none;
+      text-shadow: none;
+    }
+
+    .rainbow-word {
+      background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbow 6s linear infinite;
+      text-shadow: none;
     }
   </style>
 </head>
@@ -1387,9 +1691,9 @@
       <!-- PAGE 4 Enhanced -->
       <div class="paper-roll">
         <div class="paper-content">
-          <div class="emoji-bar">🌠🎯💫</div>
+          <div class="emoji-bar">🌠✨</div>
+          <h1 style="text-align: center;">Your Adventure Awaits</h1>
           <div class="adventure-content">
-            <h1 class="adventure-heading">Your Adventure Awaits</h1>
             <div class="road-ahead">
               <h2 style="color: #1e88e5; font-family: 'Pacifico', cursive; font-size: 2em; margin-bottom: 20px;">
                 The Road Ahead
@@ -1457,7 +1761,7 @@
               </p>
               
               <p style="margin-bottom: 20px;">
-                As you turn 18 today, I want to take a moment to tell you how incredibly proud I am to call you my best friend. You've grown into an amazing person with a heart of gold and a spirit that lights up every room you enter.
+                As you turn 18 today, I want to take a moment to tell you how incredibly <span class="glow-proud">proud</span> I am to call you my <span class="best-friend-highlight">best friend</span>. You've grown into an amazing person with a heart of gold and a spirit that lights up every room you enter.
               </p>
               
               <p style="margin-bottom: 20px;">
@@ -1478,7 +1782,7 @@
               
               <p style="text-align: right; margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.4em;">
                 With love and the best of wishes,<br>
-                Your best friend forever!
+                Your <span class="best-friend-highlight">best friend</span> forever!
               </p>
             </div>
           </div>
@@ -1504,7 +1808,6 @@
                 position: absolute;
                 animation: float 3s ease-in-out infinite;
                 opacity: 0.6;
-                z-index: 1;
               }
             </style>
             
@@ -1859,19 +2162,11 @@
           messageContent.className = 'message-content';
           
           messageContent.innerHTML = `
-            It took <span class="rainbow-word">31</span> hours and <span class="rainbow-word">2686</span> lines of code,<br>
+            It took <span class="rainbow-word">33</span> hours and <span class="rainbow-word">2767</span> lines of code,<br>
             but it's a small price to make you <span class="rainbow-word">happy</span>
           `;
           
-          // Add sparkles
-          for (let i = 0; i < 20; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            sparkle.style.animationDelay = Math.random() * 2 + 's';
-            messageContent.appendChild(sparkle);
-          }
+      
           
           finalMessage.appendChild(messageContent);
           document.body.appendChild(finalMessage);
@@ -2667,19 +2962,6 @@ function createSparkles() {
 }
 
 document.addEventListener('DOMContentLoaded', createSparkles);
-</script>
-
-<!-- Add this script to wrap "proud" with special styling -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const paragraphs = document.querySelectorAll('.paper-roll:nth-child(5) p');
-  paragraphs.forEach(p => {
-    p.innerHTML = p.innerHTML.replace(
-      /proud/g, 
-      '<span class="proud-text">proud</span>'
-    );
-  });
-});
 </script>
 
 </body>
