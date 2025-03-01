@@ -68,7 +68,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
     }
     .bg-emoji {
       position: absolute;
@@ -892,6 +892,408 @@
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                   opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    /* Add these new styles for Page 1 */
+    @keyframes floatingText {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes glowingBorder {
+      0% { box-shadow: 0 0 5px #ff6b6b, 0 0 10px #ff6b6b, 0 0 15px #ff6b6b; }
+      50% { box-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b, 0 0 30px #ff6b6b; }
+      100% { box-shadow: 0 0 5px #ff6b6b, 0 0 10px #ff6b6b, 0 0 15px #ff6b6b; }
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.5) rotate(180deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(360deg); opacity: 1; }
+    }
+
+    .sparkle-element {
+      position: absolute;
+      pointer-events: none;
+      animation: sparkle 2s infinite;
+    }
+
+    .first-page-content {
+      position: relative;
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 20px;
+      border: 3px solid #ffcdd2;
+      animation: glowingBorder 3s infinite;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .birthday-heading {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      color: #ff6b6b;
+      text-align: center;
+      margin-bottom: 30px;
+      animation: floatingText 3s ease-in-out infinite;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .birthday-message {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2em;
+      line-height: 1.8;
+      color: #333;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .birthday-message p {
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .birthday-message p:hover {
+      transform: translateX(10px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Add these new styles for Page 4 */
+    .adventure-content {
+      position: relative;
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px;
+      border: 3px solid #90caf9;
+      box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+      overflow: hidden;
+    }
+
+    .adventure-content::before,
+    .adventure-content::after {
+      content: '🌟';
+      position: absolute;
+      font-size: 2em;
+      animation: rotateStar 4s linear infinite;
+    }
+
+    .adventure-content::before {
+      top: 10px;
+      left: 10px;
+    }
+
+    .adventure-content::after {
+      bottom: 10px;
+      right: 10px;
+      animation-delay: -2s;
+    }
+
+    @keyframes rotateStar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .adventure-heading {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5em;
+      color: #1e88e5;
+      text-align: center;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .adventure-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #1e88e5, transparent);
+    }
+
+    .road-ahead {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .adventure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .adventure-item {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .adventure-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .adventure-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #1e88e5, #64b5f6);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .adventure-item:hover::before {
+      opacity: 1;
+    }
+
+    /* Add new animations for pages 5-8 */
+    @keyframes letterFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes cardPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Page 5 animations */
+    .paper-roll:nth-child(5) .paper-content {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .paper-roll:nth-child(5) p {
+      animation: letterFloat 3s ease-in-out infinite;
+    }
+
+    .paper-roll:nth-child(5) .floating-item {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Page 6 animations */
+    .paper-roll:nth-child(6) li {
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0.8) 0%, 
+        rgba(255,255,255,0.9) 50%, 
+        rgba(255,255,255,0.8) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 6s linear infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .paper-roll:nth-child(6) li:hover {
+      transform: translateX(10px) scale(1.02);
+    }
+
+    .paper-roll:nth-child(6) li span {
+      animation: heartbeat 2s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    /* Page 7 animations */
+    .paper-roll:nth-child(7) .memory-card {
+      position: relative;
+      overflow: hidden;
+      animation: cardPulse 3s ease-in-out infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .paper-roll:nth-child(7) .memory-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      animation: shimmer 3s infinite;
+    }
+
+    .paper-roll:nth-child(7) .memory-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Page 8 animations */
+    .paper-roll:nth-child(8) .song-item {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .paper-roll:nth-child(8) .song-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      animation: shimmer 3s infinite;
+    }
+
+    .paper-roll:nth-child(8) .song-emoji {
+      display: inline-block;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    .paper-roll:nth-child(8) .song-item:hover {
+      transform: scale(1.03);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Remove sparkle styles and replace with new animations */
+    @keyframes softGlow {
+      0%, 100% { text-shadow: 0 0 5px rgba(255, 223, 0, 0.3), 0 0 10px rgba(255, 223, 0, 0.2); }
+      50% { text-shadow: 0 0 10px rgba(255, 223, 0, 0.5), 0 0 20px rgba(255, 223, 0, 0.3); }
+    }
+
+    @keyframes gentleWave {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes subtlePop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes colorCycle {
+      0% { color: #ff69b4; }
+      25% { color: #da70d6; }
+      50% { color: #9370db; }
+      75% { color: #ba55d3; }
+      100% { color: #ff69b4; }
+    }
+
+    /* Page 5 unique animations */
+    .paper-roll:nth-child(5) .paper-content {
+      position: relative;
+    }
+
+    .paper-roll:nth-child(5) p {
+      transition: all 0.3s ease;
+    }
+
+    .paper-roll:nth-child(5) p:hover {
+      letter-spacing: 0.3px;
+    }
+
+    /* Special glow for the word "proud" */
+    .paper-roll:nth-child(5) p:contains("proud") {
+      display: inline;
+    }
+
+    .paper-roll:nth-child(5) .proud-text {
+      animation: softGlow 2s ease-in-out infinite;
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    /* Page 6 unique animations */
+    .paper-roll:nth-child(6) li {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .paper-roll:nth-child(6) li::before {
+      content: '✨';
+      position: absolute;
+      left: -20px;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .paper-roll:nth-child(6) li:hover::before {
+      left: 0;
+      opacity: 1;
+    }
+
+    .paper-roll:nth-child(6) span {
+      animation: gentleWave 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    /* Page 7 unique animations */
+    .paper-roll:nth-child(7) .memory-card {
+      position: relative;
+    }
+
+    .paper-roll:nth-child(7) .memory-card h3 {
+      animation: colorCycle 8s infinite;
+    }
+
+    .paper-roll:nth-child(7) .memory-card:hover {
+      background: linear-gradient(45deg, rgba(255,255,255,0.95), rgba(255,192,203,0.2));
+    }
+
+    /* Page 8 unique animations */
+    .paper-roll:nth-child(8) .song-item {
+      position: relative;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .paper-roll:nth-child(8) .song-item:hover {
+      border-left: 3px solid #ff69b4;
+      padding-left: 15px;
+    }
+
+    .paper-roll:nth-child(8) .song-emoji {
+      display: inline-block;
+      animation: subtlePop 2s ease-in-out infinite;
+    }
+
+    /* Remove white dots by updating sparkle styles */
+    #finalMessage .sparkle {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -912,20 +1314,22 @@
       <!-- PAGE 1 Replacement -->
 <div class="paper-roll">
     <div class="paper-content">
-      <div class="emoji-bar">🎉🎈🥳</div>
-      <h1 style="text-align: center;">Happy birthday yamen</h1>
-      <p class="birthday-text">
-        Yo, Yamen! Today you level up to 18, and it's absolutely wild!<br />
-        I still remember us goofing around and dreaming big as kids—now look at you, all grown and ready to take on the world!<br />
-        Turning 18 is like hitting the ultimate unlock code for new adventures, and I'm so stoked for you.<br />
-        It's not just another birthday; it's a full-on milestone that marks the start of epic stories waiting to happen.<br />
-        From late-night hangs to spontaneous road trips, I can't wait to see you chase every crazy dream of yours.<br />
-        Life's gonna throw some wild curves, but I know you'll smash through them with that fearless spirit of yours.<br />
-        Here's to endless laughs, deep convos, and moments that make you go "Whoa, did that really just happen?"<br />
-        Enjoy every bit of this insane ride, your best days are only getting started!
-      </p>
+        <div class="emoji-bar">🎉🎈🥳</div>
+        <div class="first-page-content">
+            <h1 class="birthday-heading">Happy birthday yamen</h1>
+            <div class="birthday-message">
+                <p>Yo, Yamen! Today you level up to 18, and it's absolutely abrupt! 🌟</p>
+                <p>I still remember us goofing around and dreaming big as teens—now look at you, all grown and ready to take on the world! ✨</p>
+                <p>Turning 18 is like hitting the ultimate unlock code for new adventures, and I'm so stoked for you! 🚀</p>
+                <p>It's not just another birthday; it's a full-on milestone that marks the start of an epic story! 📖</p>
+                <p>From late-night hangs to spontaneous road trips, I can't wait to see you chase every crazy dream of yours! 💫</p>
+                <p>Life's gonna throw some wild curves, but I know you'll smash through them with that fearless spirit of yours! 💪</p>
+                <p>Here's to endless laughs, deep convos, and moments that make you go "Whoa, did that really just happen?" 🎉</p>
+                <p>Enjoy every bit of this insane ride, your best days are only getting started! 🌈</p>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
   
       <!-- PAGE 2 Replacement -->
 <div class="paper-roll">
@@ -933,16 +1337,16 @@
       <div class="emoji-bar">✨🌟💫</div>
       <h1 style="text-align: center;">15 Reasons to Be Happy</h1>
       <ul style="font-family: 'Permanent Marker', cursive; font-size: 1.2em; color: #333; line-height: 1.6; list-style: none; padding: 20px;">
-        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You have an amazing ability to dream big.</li>
-        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">✨ Every new day brings endless opportunities.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You are insanly pretty .</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">✨ you are young and full of energy .</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">💫 Your smile lights up every room you enter.</li>
-        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌈 Adventure is waiting around every corner.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌈  you have a heart full of love and kindness.</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">💪 You're brave enough to take on any challenge.</li>
-        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🎨 Your creativity makes the world more colorful.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🎨 Your mindset makes the world more colorful.</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You have a unique style that sets you apart.</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">✨ Every moment is a chance to create something awesome.</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">😊 Your humor brings joy to everyone around you.</li>
-        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🤝 You're surrounded by friends who have your back.</li>
+        <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🤝 You're surrounded by friends who loves you</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">💫 Every setback is just a setup for a comeback.</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">⭐ Your passion for life is totally contagious.</li>
         <li style="margin: 15px 0; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; transition: transform 0.3s ease; position: relative; z-index: 1;">🌟 You find reasons to smile even on tough days.</li>
@@ -984,30 +1388,34 @@
       <div class="paper-roll">
         <div class="paper-content">
           <div class="emoji-bar">🌠🎯💫</div>
-          <h1 style="text-align: center;">Your Adventure Awaits</h1>
-          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <div style="text-align: center; margin-bottom: 30px;">
-              <h2 style="color: #1e88e5; font-family: 'Pacifico', cursive; font-size: 2em; margin-bottom: 20px;">The Road Ahead</h2>
+          <div class="adventure-content">
+            <h1 class="adventure-heading">Your Adventure Awaits</h1>
+            <div class="road-ahead">
+              <h2 style="color: #1e88e5; font-family: 'Pacifico', cursive; font-size: 2em; margin-bottom: 20px;">
+                The Road Ahead
+              </h2>
               <p style="font-size: 1.2em; line-height: 1.8; color: #1565c0;">
                 At 18, you're standing at the threshold of endless possibilities.<br>
                 Every dream is within reach, every goal attainable!
-          </p>
-        </div>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
-              <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px; text-align: center;">
+              </p>
+            </div>
+            
+            <div class="adventure-grid">
+              <div class="adventure-item">
                 <h3 style="color: #1e88e5; margin-bottom: 15px;">🎯 Your Goals</h3>
                 <ul style="list-style: none; padding: 0; text-align: left;">
-                  <li style="margin: 10px 0;">🌟 Chase your passions</li>
-                  <li style="margin: 10px 0;">💫 Create your path</li>
-                  <li style="margin: 10px 0;">✨ Make your mark</li>
+                  <li style="margin: 10px 0;">🌟 Chase your passions and become the best doctor ever</li>
+                  <li style="margin: 10px 0;">💫 enjoy life to the fullest</li>
+                  <li style="margin: 10px 0;">✨ leave your mark on the world!</li>
                 </ul>
-      </div>
-              <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px; text-align: center;">
+              </div>
+              
+              <div class="adventure-item">
                 <h3 style="color: #1e88e5; margin-bottom: 15px;">💫 Your Journey</h3>
                 <ul style="list-style: none; padding: 0; text-align: left;">
                   <li style="margin: 10px 0;">🌠 Embrace challenges</li>
                   <li style="margin: 10px 0;">🎯 Stay determined</li>
-                  <li style="margin: 10px 0;">⭐ Keep shining</li>
+                  <li style="margin: 10px 0;">⭐ Keep shining, my star!</li>
                 </ul>
               </div>
             </div>
@@ -1053,11 +1461,11 @@
               </p>
               
               <p style="margin-bottom: 20px;">
-                Remember all those crazy adventures we've had? From late-night gaming sessions to those spontaneous hangouts that turned into unforgettable memories. Each moment with you has been nothing short of amazing.
+                Remember all those crazy adventures we've had? from cinema nights to late hangouts at school
               </p>
               
               <p style="margin-bottom: 20px;">
-                Your determination, creativity, and kindness inspire me every day. The way you chase your dreams, support your friends, and face challenges with that signature smile of yours – it's truly remarkable.
+                Your determination, creativity, and kindness inspire me every day. The way you chase your dreams, support your friends, and face challenges with that signature laugh of yours – it's truly remarkable.
               </p>
               
               <p style="margin-bottom: 20px;">
@@ -1069,8 +1477,8 @@
               </p>
               
               <p style="text-align: right; margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.4em;">
-                With love and friendship,<br>
-                Your best friend
+                With love and the best of wishes,<br>
+                Your best friend forever!
               </p>
             </div>
           </div>
@@ -1096,6 +1504,7 @@
                 position: absolute;
                 animation: float 3s ease-in-out infinite;
                 opacity: 0.6;
+                z-index: 1;
               }
             </style>
             
@@ -1117,11 +1526,11 @@
             <ul style="list-style: none; padding: 0;">
               <li style="margin: 15px 0; padding-left: 30px; position: relative;">
                 <span style="position: absolute; left: 0;">🎓</span>
-                <strong>Education Goals:</strong> Chase those dreams, whether it's college, skills, or creative pursuits
+                <strong>Education Goals:</strong> Chase those dreams, whether it's becoming a doctor or being no1 in tawjihi
               </li>
               <li style="margin: 15px 0; padding-left: 30px; position: relative;">
                 <span style="position: absolute; left: 0;">💪</span>
-                <strong>Personal Growth:</strong> Level up your skills, discover new passions, and push your limits
+                <strong>Personal Growth:</strong> Level up your skills, discover new passions, and enjoy the growth!
               </li>
               <li style="margin: 15px 0; padding-left: 30px; position: relative;">
                 <span style="position: absolute; left: 0;">🌍</span>
@@ -1144,19 +1553,19 @@
           <div class="memory-collection">
             <div class="memory-card">
               <h3>✨ Epic Memory #1</h3>
-              <p>That time we couldn't stop laughing during the movie night</p>
+              <p>That time we couldn't stop laughing during the movie night that we annoied everyone watching</p>
             </div>
             <div class="memory-card">
               <h3>✨ Epic Memory #2</h3>
-              <p>When we tried to cook and almost burned the kitchen</p>
+              <p>When we went to the ladies bathroom😭 </p>
             </div>
             <div class="memory-card">
               <h3>✨ Epic Memory #3</h3>
-              <p>Our legendary gaming marathons that lasted till dawn</p>
+              <p>when i lied to my family and went with you to the barber shop</p>
             </div>
             <div class="memory-card">
               <h3>✨ Epic Memory #4</h3>
-              <p>That road trip where we got lost but found adventure</p>
+              <p>when you first sat in my class and my heart said: yes thats my best friend!</p>
             </div>
           </div>
         </div>
@@ -1168,6 +1577,20 @@
           <div class="emoji-bar">🎵🎧🎸</div>
           <h1 style="text-align: center;">Your Birthday Soundtrack</h1>
           <div class="playlist-container">
+            <!-- Add Ramadan Reminder -->
+            <div style="background: rgba(0, 150, 0, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; border: 2px solid #4CAF50;">
+              <p style="color: #4CAF50; font-weight: bold; font-size: 1.2em; margin: 0;">⚠️ Remember it's Ramadan! Only listen after iftar! ⚠️</p>
+            </div>
+
+            <!-- Add YouTube Playlist Button -->
+            <a href="https://www.youtube.com/watch?v=w5tWYmIOWGk&list=PLzVJdOUvA_6hu08OSTejyUVVdz4bcSsmB" target="_blank" style="display: block; text-decoration: none; margin-bottom: 20px;">
+              <div style="background: linear-gradient(135deg, #FF0000, #CC0000); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <span style="color: white; font-weight: bold; font-size: 1.1em;">
+                  🎵 Click to Open Full YouTube Playlist 🎵
+                </span>
+              </div>
+            </a>
+
             <div class="song-item">
               <span class="song-emoji">🎵</span>
               <div class="song-details">
@@ -1178,8 +1601,8 @@
             <div class="song-item">
               <span class="song-emoji">🎵</span>
               <div class="song-details">
-                <strong>"The Nights"</strong>
-                <span>Avicii</span>
+                <strong>"غصن رمان"</strong>
+                <span>Maryam Shehab</span>
               </div>
             </div>
             <div class="song-item">
@@ -1192,15 +1615,32 @@
             <div class="song-item">
               <span class="song-emoji">🎵</span>
               <div class="song-details">
-                <strong>"Best Day of My Life"</strong>
-                <span>American Authors</span>
+                <strong>" In Da Club"</strong>
+                <span>50 Cent </span>
               </div>
             </div>
             <div class="song-item">
               <span class="song-emoji">🎵</span>
               <div class="song-details">
-                <strong>"Hall of Fame"</strong>
-                <span>The Script</span>
+                <strong>"How Do You Do"</strong>
+                <span>Nightcore Lab NCL
+                </span>
+              </div>
+              <div class="song-item">
+                <span class="song-emoji">🎵</span>
+                <div class="song-details">
+                  <strong>" Me Gustas Tu"</strong>
+                  <span>Manu Chao
+                  </span>
+                </div>
+              </div>
+              <div class="song-item">
+                <span class="song-emoji">🎵</span>
+                <div class="song-details">
+                  <strong>"Stay With Me"</strong>
+                  <span>Miki Matsubara 
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -1270,7 +1710,7 @@
       const pages = Array.from(document.querySelectorAll('.paper-roll'));
       const introImage = document.getElementById('introImage');
       // Final positions for each page after reveal - Updated for 10 pages
-      const finalPositions = [0, 1000, 2500, 3500, 4600, 5900, 6900, 7900, 8900, 9900];
+      const finalPositions = [0, 1400, 3000, 4050, 5200, 6300, 7350, 8400, 9550, 10650];
       let isDragging = false, startY = 0, currentY = 0;
       const threshold = 200;
       const cascadeDelay = parseInt(getComputedStyle(document.documentElement)
@@ -1419,7 +1859,7 @@
           messageContent.className = 'message-content';
           
           messageContent.innerHTML = `
-            It took <span class="rainbow-word">23</span> hours and <span class="rainbow-word">2216</span> lines of code,<br>
+            It took <span class="rainbow-word">31</span> hours and <span class="rainbow-word">2686</span> lines of code,<br>
             but it's a small price to make you <span class="rainbow-word">happy</span>
           `;
           
@@ -2204,6 +2644,42 @@ function revealNextPage(currentPage) {
 // Update or add the event listener
 document.removeEventListener('wheel', handleWheel);
 document.addEventListener('wheel', handleWheel);
+</script>
+
+<script>
+// Add this after your existing scripts
+function createSparkles() {
+    const firstPage = document.querySelector('.first-page-content');
+    if (!firstPage) return;
+
+    const sparkleCount = 15;
+    const sparkleEmojis = ['✨', '⭐', '💫', '🌟'];
+
+    for (let i = 0; i < sparkleCount; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-element';
+        sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = (Math.random() * 2) + 's';
+        firstPage.appendChild(sparkle);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', createSparkles);
+</script>
+
+<!-- Add this script to wrap "proud" with special styling -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const paragraphs = document.querySelectorAll('.paper-roll:nth-child(5) p');
+  paragraphs.forEach(p => {
+    p.innerHTML = p.innerHTML.replace(
+      /proud/g, 
+      '<span class="proud-text">proud</span>'
+    );
+  });
+});
 </script>
 
 </body>
