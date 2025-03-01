@@ -4,44 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy Birthday Yamen! 🎉</title>
-  <!-- Fonts: Poppins for body & Great Vibes for the birthday messge -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <!-- Add more decorative fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+  <!-- Consolidated Google Fonts import with display swap -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&family=Permanent+Marker&family=Dancing+Script:wght@700&family=Pacifico&family=Lobster&family=Satisfy&family=Kaushan+Script&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --pull-tab-bg: #ff4444;
-      --text-color: #333;
-      --transition-duration: 0.8s;
-      --cascade-delay: 1000ms;
-      /* Updated color palette for page reveals */
-      --color1: #ff9a9e;
-      --color2: #f6d365;
-      --color3: #fda085;
-      --color4: #a1c4fd;
-      --color5: #cfd9df;
+        --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        --font-decorative: "Great Vibes", "Dancing Script", cursive;
+        --pull-tab-bg: #ff4444;
+        --text-color: #333;
+        --transition-duration: 0.8s;
+        --cascade-delay: 1000ms;
+        /* Updated color palette for page reveals */
+        --color1: #ff9a9e;
+        --color2: #f6d365;
+        --color3: #fda085;
+        --color4: #a1c4fd;
+        --color5: #cfd9df;
     }
     
     * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
     
     body {
-      min-height: 100vh;
-      font-family: "Poppins", sans-serif;
-      overflow-x: hidden;
-      cursor: grab;
-      background: white;
-      transition: background 1s ease;
+        min-height: 100vh;
+        font-family: var(--font-primary);
+        overflow-x: hidden;
+        cursor: grab;
+        background: white;
+        transition: background 1s ease;
     }
     
     /* ===== INTRO IMAGE ===== */
