@@ -734,6 +734,170 @@
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
+
+    #finalMessage {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #ffffff;
+      opacity: 0;
+      transition: all 1.5s ease;
+      position: relative;
+      z-index: 1000;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      animation: gradientBG 10s ease infinite;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .rainbow-word {
+      display: inline-block;
+      background: linear-gradient(90deg, 
+        #ff1493, #ff4500, #ffd700, #00ff00, 
+        #00ffff, #ff00ff, #ff69b4
+      );
+      background-size: 200% auto;
+      animation: wordGlow 3s ease-in-out infinite,
+                 gradientMove 6s linear infinite;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+      font-weight: bold;
+      padding: 0 5px;
+      position: relative;
+      will-change: filter, transform;
+      isolation: isolate;
+    }
+
+    .rainbow-word::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: inherit;
+      filter: blur(10px);
+      opacity: 0.7;
+      z-index: -1;
+      will-change: filter, opacity;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes wordGlow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.8))
+                drop-shadow(0 0 20px currentColor)
+                drop-shadow(0 0 30px currentColor);
+        transform: scale(1);
+      }
+      50% { 
+        filter: drop-shadow(0 0 15px rgba(255,255,255,1))
+                drop-shadow(0 0 25px currentColor)
+                drop-shadow(0 0 35px currentColor);
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes gradientBG {
+      0% { background: linear-gradient(135deg, rgba(255,154,158,0.3), rgba(0,0,0,0.4)); }
+      25% { background: linear-gradient(135deg, rgba(246,211,101,0.3), rgba(0,0,0,0.4)); }
+      50% { background: linear-gradient(135deg, rgba(253,160,133,0.3), rgba(0,0,0,0.4)); }
+      75% { background: linear-gradient(135deg, rgba(161,196,253,0.3), rgba(0,0,0,0.4)); }
+      100% { background: linear-gradient(135deg, rgba(255,154,158,0.3), rgba(0,0,0,0.4)); }
+    }
+
+    #finalMessage .message-content {
+      position: relative;
+      padding: 40px 60px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+      box-shadow: 
+        0 8px 32px rgba(0,0,0,0.3),
+        0 0 20px rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.3);
+      transform: scale(0.9);
+      transition: all 1s ease;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .rainbow-letter {
+      display: inline-block;
+      animation: letterPulse 2s ease-in-out infinite;
+      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+
+    @keyframes letterPulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    #finalMessage .message-content::before,
+    #finalMessage .message-content::after {
+      content: '💝';
+      position: absolute;
+      font-size: 3rem; /* Increased size */
+      opacity: 0.9; /* Increased opacity */
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); /* Added glow to emojis */
+    }
+
+    #finalMessage .message-content::before {
+      top: -25px;
+      left: -25px;
+      animation-delay: -1.5s;
+    }
+
+    #finalMessage .message-content::after {
+      bottom: -25px;
+      right: -25px;
+    }
+
+    #finalMessage .sparkle {
+      position: absolute;
+      width: 6px; /* Larger sparkles */
+      height: 6px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 10px rgba(255,255,255,0.8); /* Added glow to sparkles */
+      animation: sparkle 2s linear infinite;
+      opacity: 0;
+    }
+
+    /* Add a subtle pulsing animation to the text */
+    @keyframes textPulse {
+      0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), -2px -2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.5); }
+      50% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), -2px -2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.7); }
+    }
+
+    /* Apply the pulsing animation to the text */
+    #finalMessage .message-content {
+      animation: textPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(5px, -5px) rotate(5deg); }
+    }
+
+    .page {
+      will-change: transform, opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
   </style>
 </head>
 <body>
@@ -857,15 +1021,95 @@
         </div>
       </div>
 
-      <!-- PAGE 5 -->
+      <!-- PAGE 5: Personal Message -->
       <div class="paper-roll">
         <div class="paper-content">
-          <div class="emoji-bar">💖💖💖</div>
-          <h1 style="text-align: center;">🎉 Page 5: Celebrating You 🎉</h1>
-          <p class="birthday-text">
-            Thank you for being the brilliant, kind, and inspiring soul you are.<br />
-            May this birthday be the start of your most amazing chapter yet!
-          </p>
+          <div class="emoji-bar">💝✨💫</div>
+          <h1 style="text-align: center; margin-bottom: 30px;">A Letter to My Best Friend</h1>
+          
+          <div style="
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+          ">
+            <!-- Decorative corner elements -->
+            <div style="position: absolute; top: 10px; left: 10px; font-size: 24px;">✨</div>
+            <div style="position: absolute; top: 10px; right: 10px; font-size: 24px;">✨</div>
+            <div style="position: absolute; bottom: 10px; left: 10px; font-size: 24px;">✨</div>
+            <div style="position: absolute; bottom: 10px; right: 10px; font-size: 24px;">✨</div>
+            
+            <div style="
+              text-align: left;
+              font-family: 'Montserrat', sans-serif;
+              line-height: 1.8;
+              font-size: 1.1em;
+              color: #333;
+              position: relative;
+              z-index: 2;
+            ">
+              <p style="margin-bottom: 20px;">
+                Dear Yamen,
+              </p>
+              
+              <p style="margin-bottom: 20px;">
+                As you turn 18 today, I want to take a moment to tell you how incredibly proud I am to call you my best friend. You've grown into an amazing person with a heart of gold and a spirit that lights up every room you enter.
+              </p>
+              
+              <p style="margin-bottom: 20px;">
+                Remember all those crazy adventures we've had? From late-night gaming sessions to those spontaneous hangouts that turned into unforgettable memories. Each moment with you has been nothing short of amazing.
+              </p>
+              
+              <p style="margin-bottom: 20px;">
+                Your determination, creativity, and kindness inspire me every day. The way you chase your dreams, support your friends, and face challenges with that signature smile of yours – it's truly remarkable.
+              </p>
+              
+              <p style="margin-bottom: 20px;">
+                At 18, you're standing at the beginning of an incredible journey. I know you're going to achieve amazing things because that's just who you are – a force of nature that never gives up.
+              </p>
+              
+              <p style="margin-bottom: 20px;">
+                Thank you for being the kind of friend who makes life more colorful, adventures more exciting, and every day worth looking forward to.
+              </p>
+              
+              <p style="text-align: right; margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.4em;">
+                With love and friendship,<br>
+                Your best friend
+              </p>
+            </div>
+          </div>
+          
+          <!-- Floating elements -->
+          <div class="floating-elements" style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+          ">
+            <style>
+              @keyframes float {
+                0% { transform: translate(0, 0) rotate(0deg); }
+                50% { transform: translate(5px, -5px) rotate(5deg); }
+                100% { transform: translate(0, 0) rotate(0deg); }
+              }
+              
+              .floating-item {
+                position: absolute;
+                animation: float 3s ease-in-out infinite;
+                opacity: 0.6;
+              }
+            </style>
+            
+            <span class="floating-item" style="top: 10%; left: 5%; animation-delay: 0s;">🌟</span>
+            <span class="floating-item" style="top: 20%; right: 10%; animation-delay: 0.5s;">💫</span>
+            <span class="floating-item" style="bottom: 15%; left: 8%; animation-delay: 1s;">✨</span>
+            <span class="floating-item" style="bottom: 25%; right: 7%; animation-delay: 1.5s;">⭐</span>
+          </div>
         </div>
       </div>
 
@@ -1032,7 +1276,7 @@
       const pages = Array.from(document.querySelectorAll('.paper-roll'));
       const introImage = document.getElementById('introImage');
       // Final positions for each page after reveal - Updated for 10 pages
-      const finalPositions = [0, 1000, 2500, 3500, 4500, 5500, 6500, 7500, 8500, 9500];
+      const finalPositions = [0, 1000, 2500, 3500, 4800, 5900, 6900, 7900, 8900, 9900];
       let isDragging = false, startY = 0, currentY = 0;
       const threshold = 200;
       const cascadeDelay = parseInt(getComputedStyle(document.documentElement)
@@ -1172,9 +1416,50 @@
           });
         }
 
-        // After all pages are revealed
+        // After all pages are revealed, show final message and scroll
         setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          const finalMessage = document.createElement('div');
+          finalMessage.id = 'finalMessage';
+          
+          const messageContent = document.createElement('div');
+          messageContent.className = 'message-content';
+          
+          messageContent.innerHTML = `
+            It took <span class="rainbow-word">23</span> hours and <span class="rainbow-word">2216</span> lines of code,<br>
+            but it's a small price to make you <span class="rainbow-word">happy</span>
+          `;
+          
+          // Add sparkles
+          for (let i = 0; i < 20; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            messageContent.appendChild(sparkle);
+          }
+          
+          finalMessage.appendChild(messageContent);
+          document.body.appendChild(finalMessage);
+
+          window.scrollTo({ 
+            top: document.documentElement.scrollHeight, 
+            behavior: 'smooth' 
+          });
+          
+          // Show message with fade in
+          setTimeout(() => {
+            finalMessage.style.opacity = '1';
+            finalMessage.classList.add('visible');
+          }, 1000);
+
+          // Keep the message instead of removing it
+          setTimeout(() => {
+            window.scrollTo({ 
+              top: 0, 
+              behavior: 'smooth' 
+            });
+          }, 5000);
         }, pages.length * cascadeDelay + 1000);
       };
       
@@ -1852,6 +2137,79 @@ window.addEventListener('resize', () => {
     debounce(initializeEmojis, 300)();
     }
   });
+</script>
+
+<!-- Update the swipe handling code -->
+<script>
+const pages = document.querySelectorAll('.page');
+const swipeThresholds = new Map();
+const swipeProgress = new Map();
+
+// Initialize swipe thresholds based on page height
+function initializeSwipeThresholds() {
+  pages.forEach((page) => {
+    const pageHeight = page.scrollHeight;
+    const viewportHeight = window.innerHeight;
+    // If page is significantly longer than viewport, require more swipes
+    swipeThresholds.set(page, pageHeight > viewportHeight * 1.5 ? 2 : 1);
+    swipeProgress.set(page, 0);
+  });
+}
+
+// Call this when the page loads
+initializeSwipeThresholds();
+
+// Update the wheel event handler
+function handleWheel(event) {
+  if (event.deltaY > 0) {  // Scrolling down
+    const currentPage = getCurrentPage();
+    if (!currentPage) return;
+
+    const threshold = swipeThresholds.get(currentPage);
+    let progress = swipeProgress.get(currentPage) || 0;
+    progress += 1;
+    swipeProgress.set(currentPage, progress);
+
+    // Visual feedback for progress
+    if (threshold > 1) {
+      const progressPercent = (progress / threshold) * 100;
+      currentPage.style.filter = `brightness(${100 - progressPercent * 0.3}%)`;
+    }
+
+    if (progress >= threshold) {
+      revealNextPage(currentPage);
+      // Reset the brightness
+      currentPage.style.filter = '';
+    }
+  }
+}
+
+function getCurrentPage() {
+  return Array.from(pages).find(page => 
+    !page.style.transform || 
+    !page.style.transform.includes('translateY(-100%)')
+  );
+}
+
+function revealNextPage(currentPage) {
+  const nextPage = currentPage.nextElementSibling;
+  if (nextPage && nextPage.classList.contains('page')) {
+    currentPage.style.transform = 'translateY(-100%)';
+    currentPage.style.opacity = '0';
+    
+    setTimeout(() => {
+      nextPage.style.visibility = 'visible';
+      nextPage.style.transform = 'translateY(0)';
+      nextPage.style.opacity = '1';
+      // Reset progress for next page
+      swipeProgress.set(nextPage, 0);
+    }, 500);
+  }
+}
+
+// Update or add the event listener
+document.removeEventListener('wheel', handleWheel);
+document.addEventListener('wheel', handleWheel);
 </script>
 
 </body>
